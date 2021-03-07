@@ -1,0 +1,29 @@
+.header__menu__item {
+    position: relative;
+    display: block;
+    height: 100%;
+    cursor: pointer;
+    line-height: var(--headerHeight);
+    padding: 0 20px;
+}
+
+.header__menu__item::before,
+.header__menu__item::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    transition: all .4s var(--bezier);
+}
+
+.header__menu__item::before {
+    bottom: 0;
+    height: 0;
+    background: var(--blue);
+    opacity: 0.1;
+}
+
+.header__menu__item:hover::before {
+    height: 100%;
+}

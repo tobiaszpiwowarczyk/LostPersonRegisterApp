@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/css/home/home.css" />
+
+<div class="search-box">
+    <input type="text" class="search-box__input" placeholder="Wyszukaj osobę..." />
+</div>
+
+<div class="last-registered-person-wrapper">
+    <h1>Ostatnio zgłoszeni zaginieni</h1>
+
+    <div class="last-registered-person-list">
+        <div class="last-registered-person-card">
+            <div class="last-registered-person-card__image">
+                <img src="#" alt="Jan Kowalski" />
+            </div>
+            <div class="last-registered-person-card__caption">
+                <h3>Jan Kowalski</h3>
+            </div>
+        </div>
+    </div>
+</div>

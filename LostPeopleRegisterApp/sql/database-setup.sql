@@ -1,8 +1,8 @@
---create database LostPeopleRegister;
---go
+create database LostPeopleRegister;
+go
 
---use LostPeopleRegister;
---go
+use LostPeopleRegister;
+go
 
 
 create table account
@@ -45,7 +45,7 @@ go
 create table lost_person_address_city
 (
 	  id int not null primary key identity(1, 1)
-	, lost_person_id int not null foreign key references lost_person(id)
+	, lost_person_id int not null unique foreign key references lost_person(id)
 	, city varchar(100) not null
 	, street varchar(100) not null
 	, apartment_number int not null
@@ -59,7 +59,7 @@ go
 create table lost_person_address_village
 (
 	  id int not null primary key identity(1, 1)
-	, lost_person_id int not null foreign key references lost_person(id)
+	, lost_person_id int not null unique foreign key references lost_person(id)
 	, village varchar(100) not null
 	, apartment_number int not null
 	, constraint apartment_number check(apartment_number > 0)

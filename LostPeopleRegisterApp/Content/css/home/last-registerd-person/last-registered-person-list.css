@@ -1,0 +1,7 @@
+.last-registered-person-list {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}

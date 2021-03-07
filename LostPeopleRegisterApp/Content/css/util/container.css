@@ -1,0 +1,18 @@
+﻿:root {
+    --containerWidth: 1600px;
+    --containerPadding: 20px;
+}
+
+.container {
+    position: relative;
+    height: 100%;
+    width: var(--containerWidth);
+    margin: 0 auto;
+}
+
+@media all and (max-width: 1600px) {
+    .container {
+        width: 100%;
+        padding: 0 var(--containerPadding);
+    }
+}

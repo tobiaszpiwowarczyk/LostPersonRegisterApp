@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css?v=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util/container.css?v=@DateTime.Now" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/header/header.css?v=@DateTime.Now" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header__section">
+                <a href="#" class="header__menu__item">
+                    <h2>@Page.Title</h2>
+                </a>
+            </div>
+
+            <div class="header__section">
+                <a href="#" class="header__menu__item">Zaloguj się</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+</body>
+</html>
