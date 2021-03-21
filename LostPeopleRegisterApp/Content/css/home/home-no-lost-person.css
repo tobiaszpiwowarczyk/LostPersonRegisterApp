@@ -1,0 +1,25 @@
+/*
+ * Arkusz styli wykorzystywany na stronie głównej, która będzie
+ * konfigurowała wygląd elementów, które będą się wyświetlać w
+ * momencie, gdy w naszym systemie nie będzie żadnych zaginionych osób
+ */
+
+.home-no-lost-person {
+    position: relative;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--lightGrey);
+    text-align: center;
+    margin: 0 auto;
+
+}
+
+
+.home-no-lost-person h1 {
+    font-size: 48px;
+    margin: 20px 0;
+}

@@ -1,3 +1,8 @@
+/*
+ * Arkusz styli zawierający zestaw konfiguracji wyglądu przycisku
+ * menu w górnym nagłówku strony
+ */
+
 .header__menu__item {
     position: relative;
     display: block;

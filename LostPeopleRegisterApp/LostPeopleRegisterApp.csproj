@@ -59,6 +59,10 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -72,6 +76,12 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -108,16 +118,40 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\form\button\button-group.css" />
+    <Content Include="Content\css\form\button\button.css" />
+    <Content Include="Content\css\form\input.css" />
+    <Content Include="Content\css\login-register\login-register.css" />
+    <Content Include="Content\css\login-register\login.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\util\card.css" />
     <Content Include="Content\css\util\container.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\css\util\loading-overlay.css" />
+    <Content Include="Content\js\account\AccountValidationResult.js" />
+    <Content Include="Content\js\account\AccountValidationResultParser.js" />
+    <Content Include="Content\js\input\Input.js" />
+    <Content Include="Content\js\input\InputRepository.js" />
+    <Content Include="Content\js\input\InputValidator.js" />
+    <Content Include="Content\js\login\Login.js" />
+    <Content Include="Content\js\modal\Modal.js" />
+    <Content Include="Content\js\modal\ModalCloseButton.js" />
+    <Content Include="Content\js\modal\ModalTypeData.js" />
+    <Content Include="Content\js\modal\ModalType.js" />
+    <Content Include="Content\js\register\Register.js" />
+    <Content Include="Content\js\util\LoadingOverlay.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\css\header\header.css" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Src\AccountUtil\Account.cs" />
+    <Compile Include="Src\AccountUtil\AccountRepository.cs" />
+    <Compile Include="Src\AccountUtil\Validation\AccountValidationResult.cs" />
     <Compile Include="Src\Config\ApplicationConfig.cs" />
+    <Compile Include="Src\Config\DataFolderConfig.cs" />
     <Compile Include="Src\Config\LostPersonAppConfig.cs" />
     <Compile Include="Src\Config\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -145,6 +179,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\MainLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\LoginRegisterLayout.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -152,9 +189,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

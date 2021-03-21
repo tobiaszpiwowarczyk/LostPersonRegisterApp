@@ -1,0 +1,18 @@
+﻿/*
+    Arkusz styli, zawierający konfigurację wyglądu kontrolki, która będzie
+    odpowiedzialna za wyświetlanie grupy przycisków.
+    Przyciski, które będą umieszczone w tej grupie będą ze sobą złączone,
+    cienie są usuwane i dodawany jest "globalny" cień na grupę przycisków.
+*/
+.button-group {
+    position: relative;
+    display: inline-flex;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.button-group .button {
+    border-radius: 0;
+    box-shadow: none;
+}

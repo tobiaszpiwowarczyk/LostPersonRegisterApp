@@ -1,3 +1,7 @@
+﻿-- ======================================================
+-- Skrypt SQL, który utworzy podstawową strukturę
+-- bazy danych do naszej aplikacji
+-- ======================================================
 create database LostPeopleRegister;
 go
 
@@ -13,9 +17,9 @@ create table account
 	, first_name varchar(20) not null
 	, last_name varchar(30) not null
 	, email_address varchar(40) not null unique
-	, birth_date smalldatetime
+	, birth_date date
 	, created_date smalldatetime default getdate()
-	, constraint birth_date_check check(birth_date > getdate())
+	, constraint birth_date_check check(birth_date < getdate())
 );
 go
 

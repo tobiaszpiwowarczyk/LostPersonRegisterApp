@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "~/Views/Shared/LoginRegisterLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName + " - Zarejestruj się";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/modal/modal.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/util/loading-overlay.css?v=@DateTime.Now" />
+
+<div class="login-register-form__section login-register-form__header">
+    <h1>Zarejestruj się</h1>
+</div>
+
+<form method="POST">
+    <div class="login-register-form__section">
+        <div class="login-register-form__section__column">
+            <div class="input">
+                <label for="username" class="input__label">Nazwa użytkownika</label>
+                <input id="username" name="username" type="text" autofocus />
+            </div>
+            <div class="input">
+                <label for="password" class="input__label">Hasło</label>
+                <input id="password" name="password" type="password" />
+            </div>
+        </div>
+        <div class="login-register-form__section__column">
+            <div class="input">
+                <label for="firstName" class="input__label">Imię</label>
+                <input id="firstName" name="firstName" type="text" />
+            </div>
+            <div class="input">
+                <label for="lastName" class="input__label">Nazwisko</label>
+                <input id="lastName" name="lastName" type="text" />
+            </div>
+            <div class="input">
+                <label for="emailAddress" class="input__label">Adres e-mail</label>
+                <input id="emailAddress" name="emailAddress" type="text" />
+            </div>
+            <div class="input">
+                <label for="birthDate" class="input__label">Data urodzenia</label>
+                <input id="birthDate" name="birthDate" type="date" />
+            </div>
+        </div>
+    </div>
+
+    <div class="login-register-form__section login-register-form__footer">
+        <button class="button register-button" type="submit">Zarejestruj się</button>
+    </div>
+</form>
+
+
+<div class="modal-overlay">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title"></div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content"></div>
+        <div class="modal__section modal__footer">
+            <button class="button modal__close-button modal__close-button--approve">OK</button>
+        </div>
+    </div>
+</div>
+
+<div class="loading-overlay loading-overlay--full-screen"></div>
+
+<script type="module" src="/Content/js/register/Register.js?v=@DateTime.Now"></script>

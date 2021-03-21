@@ -1,3 +1,8 @@
+/*
+ * Arkusz styli określający wygląd pola tekstowego będącego
+ * wyszukiwarką listy osób zaginionych.
+ */
+
 .search-box {
     position: relative;
     width: 100%;

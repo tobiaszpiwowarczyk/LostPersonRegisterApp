@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/LoginRegisterLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName + " - Zaloguj się";
+}
+
+<link rel="stylesheet" type="text/css" href="/Content/css/login-register/login.css?v=@DateTime.Now" />
+
+<div class="login-register-form__section login-register-form__header">
+    <h1>Zaloguj się</h1>
+</div>
+
+<form method="POST">
+    <div class="login-register-form__section">
+        <div class="login-register-form__section__column">
+            <div class="input">
+                <label for="username" class="input__label">Nazwa użytkownika</label>
+                <input id="username" name="username" type="text" autofocus />
+            </div>
+            <div class="input">
+                <label for="password" class="input__label">Hasło</label>
+                <input id="password" name="password" type="password" />
+            </div>
+        </div>
+    </div>
+
+    <div class="login-register-form__section login-error-wrapper"></div>
+
+    <div class="login-register-form__section login-register-form__footer">
+        <button class="button login-button" type="submit">Zaloguj się</button>
+        <p>Jeżeli nie posiadasz konta, <a href="/register">Zarejestruj się</a></p>
+    </div>
+</form>
+
+<div class="loading-overlay loading-overlay--full-screen"></div>
+
+<script type="module" src="~/Content/js/login/Login.js?v=@DateTime.Now"></script>

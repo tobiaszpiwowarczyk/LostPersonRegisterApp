@@ -1,0 +1,35 @@
+﻿/*
+ * Arkusz styli, który ma za zadanie zmienić wygląd wyświetlanego przycisku
+ */
+@import "button-group.css";
+
+.button {
+    position: relative;
+    background: var(--blue);
+    color: var(--white);
+    font-weight: 900;
+    font-size: 16px;
+    padding: 1.1em 1.8em;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.button::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: var(--white);
+    opacity: 0.2;
+    transition: height .2s var(--bezier);
+}
+
+.button:hover::after {
+    height: 100%;
+}

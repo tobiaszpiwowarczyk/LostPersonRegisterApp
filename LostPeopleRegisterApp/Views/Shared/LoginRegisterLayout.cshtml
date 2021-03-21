@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Page.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css?v=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util/container.css?v=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util/card.css?v=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/form/input.css?v=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/form/button/button.css?v=@DateTime.Now" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/login-register/login-register.css?v=@DateTime.Now" />
+</head>
+<body>
+    <div class="card-wrapper">
+        <div class="card login-register-form">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

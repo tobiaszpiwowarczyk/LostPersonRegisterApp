@@ -1,3 +1,9 @@
+/*
+ * Arkusz styli będący zestawem innych arkuszy styli, które będą 
+ * wykorzystywane do konfiguracji wyglądu na stronie głównej naszej
+ * aplikacji
+ */
+
 @import "search-box.css";
 @import "last-registerd-person/last-registered-person-list.css";
 @import "last-registerd-person/last-registered-person-card.css";

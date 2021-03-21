@@ -1,0 +1,81 @@
+﻿/*
+ * Arkusz styli zawierający konfigurację wyglądu nakładki, która
+ * będzie wyświetlała się w momencie, gdy aplikacja będzie wykonywała
+ * operacje długotrwałe
+ */
+
+:root {
+    --loadingOverlaySpinnerWidth: 50px;
+    --loadingOverlaySpinnerBorderWidth: 10px;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: none;
+}
+
+.loading-overlay::before,
+.loading-overlay::after {
+    content: '';
+    display: block;
+    position: absolute;
+}
+
+.loading-overlay::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--black);
+    opacity: 0.5;
+}
+
+.loading-overlay::after {
+    top: 50%;
+    left: 50%;
+    width: var(--loadingOverlaySpinnerWidth);
+    height: var(--loadingOverlaySpinnerWidth);
+    transform: translate(-50%, -50%);
+    border: var(--loadingOverlaySpinnerBorderWidth) solid var(--white);
+    border-left: var(--loadingOverlaySpinnerBorderWidth) solid transparent;
+    border-right: var(--loadingOverlaySpinnerBorderWidth) solid transparent;
+    border-radius: var(--loadingOverlaySpinnerWidth);
+    animation: spinnerAnimation .5s ease-in-out infinite;
+}
+
+
+.loading-overlay--shown {
+    display: block;
+}
+
+.loading-overlay--full-screen {
+    position: fixed;
+}
+
+.loading-overlay--light::before {
+    background: var(--white);
+}
+
+.loading-overlay--light::after {
+    border-top-color: var(--black);
+    border-bottom-color: var(--black);
+}
+
+
+
+
+
+@keyframes spinnerAnimation {
+    from {
+        transform: translate(-50%, -50%) rotate(0);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

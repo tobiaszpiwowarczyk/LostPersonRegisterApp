@@ -1,4 +1,9 @@
-﻿@import "header-menu-item.css";
+﻿/*
+ * Arkusz styli, który konfiguruje wygląd wyświetlanego górnego
+ * menu strony
+ */
+
+@import "header-menu-item.css";
 
 header {
     position: fixed;
@@ -14,4 +19,7 @@ header {
 header .container {
     display: flex;
     justify-content: space-between;
+}
+.header__section {
+    display: flex;
 }

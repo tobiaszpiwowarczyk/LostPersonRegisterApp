@@ -1,0 +1,15 @@
+﻿/*
+ * Arkusz styli, który zawiera zestaw styli, które będą wykorzystane
+ * na stronie logowania
+ */
+
+.login-error-wrapper {
+    padding: 30px;
+    color: var(--red);
+    text-align: center;
+    display: none;
+}
+
+.login-error-wrapper.login-error-wrapper--shown {
+    display: block;
+}

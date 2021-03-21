@@ -1,4 +1,9 @@
-﻿:root {
+﻿/*
+ * Arkusz styli zawierający konfigurację elementu, będącym kontenerem z
+ * określoną szerokością.
+ */
+
+:root {
     --containerWidth: 1600px;
     --containerPadding: 20px;
 }

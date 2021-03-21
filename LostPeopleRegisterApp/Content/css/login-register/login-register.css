@@ -1,0 +1,41 @@
+/*
+ * Arkusz styli określający wygląd formularza do logowania się do serwisu
+ * oraz do rejestracji użytkownika nowego konta
+ */
+
+.login-register-form {
+    position: relative;
+    display: table;
+}
+
+.login-register-form__section {
+    border-bottom: 1px solid var(--lightGrey);
+    display: flex;
+    justify-content: center;
+}
+
+.login-register-form__section:last-child {
+    border-bottom: none;
+}
+
+.login-register-form__section__column {
+    padding: 30px;
+}
+
+.login-register-form__header {
+    position: relative;
+    font-size: 21px;
+    text-align: center;
+}
+
+.login-register-form__header,
+.login-register-form__footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.login-register-form__footer p {
+    margin-top: 10px;
+    font-size: 14px;
+}

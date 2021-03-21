@@ -1,3 +1,7 @@
+/*
+ * Arkusz styli konfigurujący wygląd listy, w której będzie prezentowane
+ * zestawienie zaginionych osób
+ */
 .last-registered-person-list {
     position: relative;
     width: 100%;
