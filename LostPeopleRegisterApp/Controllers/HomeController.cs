@@ -1,7 +1,9 @@
-﻿using LostPeopleRegisterApp.Src.AccountUtil;
+﻿using LostPeopleRegisterApp.Src.LoginUtil;
 using LostPeopleRegisterApp.Src.LostPersonUtil;
 using LostPeopleRegisterApp.Src.Util;
+using System.Threading;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace LostPeopleRegisterApp.Controllers
 {
@@ -18,11 +20,13 @@ namespace LostPeopleRegisterApp.Controllers
         /// <see cref="LostPersonRepository"/>
         private LostPersonRepository lostPersonRepository { get; set; }
 
-        
-        public HomeController()
+
+        protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             this.lostPersonRepository = LostPersonRepository.INSTANCE;
         }
+
 
 
         /// <summary>
@@ -32,7 +36,7 @@ namespace LostPeopleRegisterApp.Controllers
         public ActionResult Index()
         {
             ViewBag.lostPersonList = this.lostPersonRepository.findAll();
-            ViewBag.currentlyLoggedUser = (Account)Session["account"];
+            ViewBag.currentlyLoggedUser = this.loginService.getCurrentlyLoggedAccount();
 
             return View();
         }

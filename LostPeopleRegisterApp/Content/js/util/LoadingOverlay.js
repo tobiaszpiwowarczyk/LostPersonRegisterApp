@@ -1,5 +1,5 @@
 ﻿/*
- * Klasa odpowiedzialna za zarządzanie nakładki ładowania.
+ * Klasa odpowiedzialna za zarządzanie nakładką ładowania.
  * Nakładka ta ma na celu pokazać uużytkownikowi, że nastąpi wykonywanie
  * długotrwałej operacji
  */
@@ -11,6 +11,7 @@ export default class LoadingOverlay {
     constructor(selector) {
         this.wrapper = document.querySelector(selector);
         this.showed = false;
+        this.isFullScreen = this.wrapper.classList.contains("loading-overlay--full-screen");
     }
 
 
@@ -20,6 +21,8 @@ export default class LoadingOverlay {
     show() {
         this.wrapper.classList.add("loading-overlay--shown");
         this.showed = true;
+        if (this.isFullScreen)
+            document.body.style.overflow = "hidden";
     }
 
     /*
@@ -28,5 +31,7 @@ export default class LoadingOverlay {
     hide() {
         this.wrapper.classList.remove("loading-overlay--shown");
         this.showed = false;
+        if (this.isFullScreen)
+            document.body.style.overflow = "auto";
     }
 }

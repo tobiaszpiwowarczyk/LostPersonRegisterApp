@@ -1,0 +1,9 @@
+﻿/*
+ * Arkusz styli, który importuje pozostałe niezbedne arkusze styli, które
+ * będą wykorzystywane do konfogurowania wyglądy elementów widocznych w 
+ * ustawieniach konta użytkownika
+ */
+
+@import "account-dashboard.css";
+@import "account-panel.css";
+@import "account-avatar.css";

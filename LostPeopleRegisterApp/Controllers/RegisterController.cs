@@ -1,9 +1,10 @@
 ﻿using LostPeopleRegisterApp.Src.AccountUtil;
 using LostPeopleRegisterApp.Src.AccountUtil.Validation;
+using LostPeopleRegisterApp.Src.LoginUtil;
 using LostPeopleRegisterApp.Src.Util;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace LostPeopleRegisterApp.Controllers
 {
@@ -20,9 +21,10 @@ namespace LostPeopleRegisterApp.Controllers
         private AccountRepository accountRepository { get; set; }
 
 
-        
-        public RegisterController()
+
+        protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             this.accountRepository = AccountRepository.INSTANCE;
         }
 
@@ -33,7 +35,13 @@ namespace LostPeopleRegisterApp.Controllers
         /// Metoda ta ma zadanie wyświetlić stronę rejestracji użytkownika
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index() => View();
+        public ActionResult Index()
+        {
+            if (this.loginService.isAccountLogged())
+                return Redirect("/");
+
+            return View();
+        }
 
 
 
@@ -44,10 +52,10 @@ namespace LostPeopleRegisterApp.Controllers
         /// <returns></returns>
         /// <see cref="Account"/>
         [HttpPost]
-        public string doRegister(Account account)
+        public ActionResult doRegister(Account account)
         {
             this.accountRepository.create(account);
-            return JsonConvert.SerializeObject(new Dictionary<string, bool>() { { "registered", this.accountRepository.existsByUsername(account.username) } });
+            return Json(new Dictionary<string, bool>() { { "registered", this.accountRepository.existsByUsername(account.username) } });
         }
 
 
@@ -58,20 +66,10 @@ namespace LostPeopleRegisterApp.Controllers
         /// <returns>
         ///     Zwraca ciąg znaków w postaci JSON, która zawierać będzie informacje o poprawności wprowadzonych danych.
         /// </returns>
-        public string validate()
-        {
-            List<AccountValidationResult> validationResults = new List<AccountValidationResult>();
-
-            string username = Request.Form["username"];
-            string emailAddress = Request.Form["emailAddress"];
-
-            if (username != null)
-                validationResults.Add(new AccountValidationResult("username", !this.accountRepository.existsByUsername(username)));
-
-            if (emailAddress != null)
-                validationResults.Add(new AccountValidationResult("emailAddress", this.accountRepository.existsByEmail(emailAddress)));
-
-            return JsonConvert.SerializeObject(validationResults);
-        }
+        public ActionResult validate(Account account) => Json(new List<AccountValidationResult>()
+            {
+                new AccountValidationResult("username", account.username != null && !this.accountRepository.existsByUsername(account.username)),
+                new AccountValidationResult("emailAddress", account.emailAddress != null && this.accountRepository.existsByEmail(account.emailAddress))
+            });
     }
 }

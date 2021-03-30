@@ -1,0 +1,39 @@
+﻿/*
+ * Arkusz styli, mający na celu konfiguracje wyglądu strony do zarządzania
+ * kontem użytkownika
+ */
+
+.account-dashboard {
+    position: relative;
+    width: 100%;
+}
+
+.account-dashboard__section {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.account-dashboard__section:last-child {
+    margin-bottom: 0;
+}
+
+.account-dashboard__section--horizontal {
+    display: flex;
+    align-items: stretch;
+}
+
+.account-dashboard__section__item {
+    flex-shrink: 0;
+    flex-grow: 1;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.account-dashboard__section__item:first-child {
+    margin-left: 0;
+}
+
+.account-dashboard__section__item:last-child {
+    margin-right: 0;
+}

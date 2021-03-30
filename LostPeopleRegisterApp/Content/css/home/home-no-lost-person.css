@@ -7,7 +7,7 @@
 .home-no-lost-person {
     position: relative;
     width: 70%;
-    height: 100%;
+    height: calc(100vh - (var(--headerHeight) + var(--containerPadding) * 2));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,6 @@
     color: var(--lightGrey);
     text-align: center;
     margin: 0 auto;
-
 }
 
 

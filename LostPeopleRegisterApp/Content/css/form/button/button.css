@@ -30,6 +30,10 @@
     transition: height .2s var(--bezier);
 }
 
-.button:hover::after {
+.button:not(:disabled):hover::after {
     height: 100%;
+}
+.button:disabled {
+    background: var(--lightGrey);
+    cursor: default;
 }

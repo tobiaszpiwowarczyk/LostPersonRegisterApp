@@ -8,6 +8,7 @@ export default class Input {
 
     // @wrapper - element, który zawiera pole wejściowe
     constructor(wrapper) {
+        var _self = this;
 
         if (!wrapper.classList.contains("input")) {
             throw new Error("Akceptowane są tylko elementy z klasą \"input\".");
@@ -15,12 +16,15 @@ export default class Input {
         this.wrapper = wrapper;
         this.input = this.wrapper.querySelector("input,textarea");
         
+        this.name = this.input.name;
         this.centered = this.wrapper.classList.contains("input--centered");
         this.invalid = this.wrapper.classList.contains("input--invalid");
         this.validatorElement = null;
         this.validators = [];
 
-        this.input.addEventListener("input", () => this.validate(), false);
+        this.onChange = (x) => {};
+
+        this.input.addEventListener("input", () => _self.validate().then(() => _self.onChange(_self.input.value)), false);
     }
 
     /*
@@ -34,8 +38,10 @@ export default class Input {
         this.invalid = invalid;
         if(invalid)
             this.wrapper.classList.add("input--invalid");
-        else
+        else {
             this.wrapper.classList.remove("input--invalid");
+            this.validatorElement.innerHTML = "";
+        }
     }
 
 
@@ -62,16 +68,45 @@ export default class Input {
      * Metoda ma za zadanie sprawdzić poprawność wprowadzonej wartości w poleu wejściowym
      */
     validate() {
-        for (var validator of this.validators) {
-            if (!validator.validate(this.input.value)) {
-                this.setInvalid(true);
-                this.validatorElement.innerHTML = validator.message;
-                return false;
+        return Promise.resolve((async () => {
+            var hasError = false;
+            for (var validator of this.validators) {
+
+                const isInvalid = await validator.validate(this.input.value).then(res => {
+                    if (!res) {
+                        this.setInvalid(true);
+                        this.validatorElement.innerHTML = validator.message;
+                        return true;
+                    }
+                    return false;
+                });
+
+                if (isInvalid) {
+                    hasError = true;
+                    break;
+                }
             }
-        }
 
-        this.setInvalid(false);
-
-        return true;
+            if (!hasError) this.setInvalid(false);
+            return this;
+        })());
     }
+
+
+    /*
+     * Metoda ma za zadanie uaktywnić aktualną kontrolkę
+     */
+    focus = () => this.input.focus();
+
+    
+    /*
+     * Metoda usuwa wartość, która została wprowadzona w dane pole wejściowe
+     */
+    clear = () => this.input.value = "";
+
+
+    /*
+     * Metoda pobiera i zwraca wartość pola wejściowego
+     */
+    getValue = () => this.input.value;
 }

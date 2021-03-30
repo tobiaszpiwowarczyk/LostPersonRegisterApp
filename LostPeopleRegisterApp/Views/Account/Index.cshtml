@@ -1,0 +1,156 @@
+﻿@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName;
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/modal/modal.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/account/account.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/button/button.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/input.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/util/loading-overlay.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/util/alert.css?v=@DateTime.Now" />
+
+<div class="account-dashboard">
+    <div class="account-dashboard__section account-dashboard__section--horizontal">
+        <div class="card account-dashboard__section__item account-panel account-panel--user-data">
+            <div class="account-panel__section account-panel__header">
+                <div class="account-panel__header__title">
+                    <h1>Podstawowe dane użytkownika</h1>
+                </div>
+            </div>
+            <div class="account-panel__section account-panel__content">
+                <div class="account-avatar">
+                    <div class="account-avatar__image">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="account-avatar__caption">
+                        <h2>@(ViewBag.currentlyLoggedUser.firstName + " " + ViewBag.currentlyLoggedUser.lastName)</h2>
+                    </div>
+                </div>
+                <span>
+                    <p>Data dołączenia: <b>@ViewBag.currentlyLoggedUser.createdDate.ToString("yyyy-MM-dd HH:mm:ss")</b></p>
+                </span>
+            </div>
+        </div>
+        <div class="card account-dashboard__section__item account-panel update-user-data-panel">
+            <div class="account-panel__section account-panel__header">
+                <div class="account-panel__header__title">
+                    <h1>Ustawienia konta</h1>
+                </div>
+            </div>
+            <div class="account-panel__section account-panel__content">
+                <div class="input">
+                    <label for="username" class="input__label">Nazwa użytkownika</label>
+                    <input type="text" name="username" id="username" value="@ViewBag.currentlyLoggedUser.username" />
+                </div>
+                <div class="input">
+                    <label for="firstName" class="input__label">Imię</label>
+                    <input type="text" name="firstName" id="firstName" value="@ViewBag.currentlyLoggedUser.firstName" />
+                </div>
+                <div class="input">
+                    <label for="lastName" class="input__label">Nazwisko</label>
+                    <input type="text" name="lastName" id="lastName" value="@ViewBag.currentlyLoggedUser.lastName" />
+                </div>
+                <div class="input">
+                    <label for="emailAddress" class="input__label">Adres e-mail</label>
+                    <input type="text" name="emailAddress" id="emailAddress" value="@ViewBag.currentlyLoggedUser.emailAddress" />
+                </div>
+                <div class="input">
+                    <label for="birthDate" class="input__label">Data urodzenia</label>
+                    <input type="date" name="birthDate" id="birthDate" value="@ViewBag.currentlyLoggedUser.birthDate.ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+            <div class="account-panel__section account-panel__footer">
+                <div class="button-group">
+                    <button class="button change-password-button">Zmień hasło</button>
+                    <button class="button update-account-details-button" disabled>Zaktualizuj dane</button>
+                </div>
+            </div>
+            <div class="loading-overlay loading-overlay--light" id="update-account-overlay"></div>
+        </div>
+    </div>
+    <div class="account-dashboard__section">
+        <div class="card account-dashboard__section__item account-panel">
+            <div class="account-panel__section account-panel__header">
+                <div class="account-panel__header__title">
+                    <h1>Lista dodanych zaginionych</h1>
+                </div>
+                <button class="button">Dodaj nową zaginioną osobę</button>
+            </div>
+            <div class="account-panel__section account-panel__content">
+                @if(ViewBag.currentlyLoggedUser.lostPersonList.Count == 0) {
+                    <link rel="stylesheet" type="text/css" href="/Content/css/account/account-no-lost-person.css?v=@DateTime.Now" />
+                    <div class="account-no-lost-person">
+                        <h1>Nie dodałeś żadnej zaginionej osoby.</h1>
+                        <p>Aby ją dodać, kliknij w przycisk <b>Dodaj nową zaginioną osobę</b></p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-overlay" id="change-password-modal">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title">Zmień hasło</div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content">
+            <form method="POST">
+                <div class="input">
+                    <label for="currentPassword" class="input__label">Podaj aktualne hasło</label>
+                    <input type="password" name="currentPassword" id="currentPassword" autocomplete="off" />
+                </div>
+                <div class="input">
+                    <label for="newPassword" class="input__label">Podaj nowe hasło</label>
+                    <input type="password" name="newPassword" id="newPassword" autocomplete="off" />
+                </div>
+                <div class="input">
+                    <label for="confirmedPassword" class="input__label">Powtórz nowe hasło</label>
+                    <input type="password" name="confirmedPassword" id="confirmedPassword" autocomplete="off" />
+                </div>
+            </form>
+        </div>
+        <div class="modal__section modal__footer">
+            <div class="button-group">
+                <button class="button modal__close-button modal__close-button--approve">OK</button>
+                <button class="button modal__close-button">Anuluj</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="update-password-modal">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title"></div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content"></div>
+        <div class="modal__section modal__footer">
+            <button class="button modal__close-button modal__close-button--approve">OK</button>
+        </div>
+    </div>
+</div>
+
+<div class="alert">
+    <div class="alert__icon">
+        <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="alert__content"></div>
+    <div class="alert__close-button">
+        <i class="fas fa-times"></i>
+    </div>
+</div>
+
+<div class="loading-overlay loading-overlay--full-screen" id="full-page-loading-overlay"></div>
+
+<script type="module" src="/Content/js/account/Account.js?v=@DateTime.Now"></script>

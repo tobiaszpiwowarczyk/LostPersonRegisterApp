@@ -35,6 +35,11 @@ else
 
 <div class="home-no-lost-person">
     <h1>Obecnie w naszym systemie nie jest zarejestrowany żaden zaginiony.</h1>
-    <p>Aby dodać nowego zaginionego, zaloguj się na konto klikając w przycisk <b>Zaloguj się</b>.</p>
+    @if(ViewBag.currentlyLoggedUser == null) {
+        <p>Aby dodać nowego zaginionego, zaloguj się na konto klikając w przycisk <b>Zaloguj się</b>.</p>
+    }
+    else {
+        <p>Aby dodać nowego zaginionego, kliknij w <b>@ViewBag.currentlyLoggedUser.firstName @ViewBag.currentlyLoggedUser.lastName</b></p>
+    }
 </div>
 }

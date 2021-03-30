@@ -1,0 +1,108 @@
+/*
+ * Arkusz styli, który ma za zadanie skonfigurować wygląd kontrolki
+ * odpowiedzialnej za wyśwetlanie powiadomień.
+ */
+
+:root {
+    --alertHeight: 70px;
+    --alertProgessTime: 3s;
+    --alertShowTime: .2s;
+}
+
+.alert {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: height var(--alertShowTime) var(--bezier);
+}
+
+.alert::before,
+.alert::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 7px;
+    background: var(--black);
+    opacity: 0.4;
+}
+
+.alert::before {
+    right: 0;
+}
+
+.alert::after {
+    width: 0;
+}
+
+@keyframes alertProgessAnimation {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.alert__icon,
+.alert__content,
+.alert__close-button {
+    position: relative;
+}
+
+.alert__icon,
+.alert__close-button {
+    width: var(--alertHeight);
+    height: var(--alertHeight);
+    font-size: 21px;
+}
+
+.alert__icon,
+.alert__content,
+.alert__close-button {
+    text-align: center;
+    line-height: var(--alertHeight);
+    color: var(--black);
+    opacity: 0.5;
+    font-weight: 900;
+}
+
+.alert__close-button {
+    cursor: pointer;
+}
+
+.alert__close-button::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: var(--black);
+    opacity: 0.3;
+    transition: height .2s var(--bezier);
+}
+
+.alert__close-button:hover::after {
+    height: 100%;
+}
+
+
+.alert--shown {
+    height: var(--alertHeight);
+}
+
+.alert--shown::after {
+    animation: alertProgessAnimation var(--alertProgessTime) linear forwards;
+    animation-delay: var(--alertShowTime);
+}

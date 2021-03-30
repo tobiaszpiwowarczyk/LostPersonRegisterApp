@@ -1,8 +1,9 @@
 ﻿using LostPeopleRegisterApp.Src.AccountUtil;
+using LostPeopleRegisterApp.Src.LoginUtil;
 using LostPeopleRegisterApp.Src.Util;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace LostPeopleRegisterApp.Controllers
 {
@@ -21,8 +22,9 @@ namespace LostPeopleRegisterApp.Controllers
 
 
 
-        public LoginController()
+        protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             this.accountRepository = AccountRepository.INSTANCE;
         }
 
@@ -33,7 +35,13 @@ namespace LostPeopleRegisterApp.Controllers
         /// Metoda ta ma za zadanie wyswietlić stronę logowania
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index() => View();
+        public ActionResult Index()
+        {
+            if (this.loginService.isAccountLogged())
+                return Redirect("/");
+
+            return View();
+        }
 
 
 
@@ -41,28 +49,25 @@ namespace LostPeopleRegisterApp.Controllers
         /// Metoda ta ma za zadanie zalogować użytkownika wobec wprowadzonych danych
         /// logowania
         /// </summary>
-        /// <param name="username">Nazwa użytkownika</param>
-        /// <param name="password">Hasło</param>
+        /// <param name="loginData">Obiekt z danymi logowania</param>
+        /// <see cref="LoginData"/>
         [HttpPost]
-        public void doLogin(string username, string password)
-        {
-            Session["account"] = this.accountRepository.findByUsernameAndPassword(username, password);
-        }
+        public void doLogin(LoginData loginData) => this.loginService.login(loginData);
 
 
 
         /// <summary>
         /// Metoda ta ma zadanie sprawdzić poprawność wprowadzanych danych logowania
         /// </summary>
-        /// <param name="username">Nazwa użytkownika</param>
-        /// <param name="password">Hasło</param>
+        /// <param name="loginData">Obiekt z danymi logowania</param>
         /// <returns>
         ///     Zwraca ciąg znaków w postaci JSON, któy zawierać będzie stan walidacji wprowadzanych danych.
         /// </returns>
+        /// <see cref="LoginData"/>
         [HttpPost]
-        public string validate(string username, string password)
+        public ActionResult validate(LoginData loginData)
         {
-            return JsonConvert.SerializeObject(new Dictionary<string, bool>() { { "valid", this.accountRepository.existsByUsernameAndPassword(username, password) } });
+            return Json(new Dictionary<string, bool>() { { "valid", this.accountRepository.existsByUsernameAndPassword(loginData.username, loginData.password) } });
         }
 
 
@@ -74,7 +79,7 @@ namespace LostPeopleRegisterApp.Controllers
         /// <returns></returns>
         public ActionResult logout()
         {
-            Session.Clear();
+            this.loginService.logout();
             return Redirect("/");
         }
     }

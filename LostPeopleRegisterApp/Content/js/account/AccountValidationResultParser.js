@@ -12,7 +12,5 @@ export default class AccountValidationResultParser {
      * 
      * @obj - wejściowy obiekt
      */
-    static parse(obj) {
-        return new AccountValidationResult(obj.fieldName, obj.result);
-    }
+    static parse = (obj) => new AccountValidationResult(obj.fieldName, obj.result);
 }

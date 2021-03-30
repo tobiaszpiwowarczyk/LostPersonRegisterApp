@@ -1,0 +1,14 @@
+﻿/*
+ * Arkusz styli określający wygląd elementu, który będzie wyświetlał
+ * informacje o braku utworzonych osób zaginionwych
+ */
+
+.account-no-lost-person {
+    position: relative;
+    color: var(--lightGrey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}

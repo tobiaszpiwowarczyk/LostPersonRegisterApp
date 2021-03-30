@@ -1,0 +1,30 @@
+﻿/*
+ * Arkusz styli, w którym konfigurujemy wygląd awatara widocznego
+ * w ustawieniach konta użytkownika
+ */
+
+:root {
+    --accountAvatarImageWidth: 200px;
+}
+
+.account-avatar {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.account-avatar__image {
+    width: var(--accountAvatarImageWidth);
+    height: var(--accountAvatarImageWidth);
+    text-align: center;
+    line-height: var(--accountAvatarImageWidth);
+    font-size: 90px;
+    border: 3px solid var(--blue);
+    border-radius: var(--accountAvatarImageWidth);
+    color: var(--blue);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+}
+
+.account-avatar__caption {
+    text-align: center;
+    margin-top: 10px;
+}

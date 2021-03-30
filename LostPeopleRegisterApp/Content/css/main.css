@@ -32,7 +32,6 @@
 
 html,
 body {
-    width: 100vw;
     min-height: 100vh;
     background: #e9f2ff;
 }
@@ -40,8 +39,9 @@ body {
 main {
     position: relative;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: calc(var(--headerHeight) + var(--containerPadding));
+    padding-bottom: var(--containerPadding);
 }
 
 a {

@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.currentPath = Request.Url.AbsolutePath;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@Page.Title</title>
     <link rel="stylesheet" type="text/css" href="~/Content/css/main.css?v=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util/card.css?v=@DateTime.Now" />
     <link rel="stylesheet" type="text/css" href="~/Content/css/util/container.css?v=@DateTime.Now" />
 
     <link rel="stylesheet" type="text/css" href="~/Content/css/header/header.css?v=@DateTime.Now" />
@@ -12,17 +16,19 @@
     <header>
         <div class="container">
             <div class="header__section">
-                <a href="#" class="header__menu__item">
+                <a href="/" class="header__menu__item">
                     <h2>@Page.Title</h2>
                 </a>
             </div>
 
             <div class="header__section">
-                @if(ViewBag.currentlyLoggedUser != null) {
-                    <a href="" class="header__menu__item">@ViewBag.currentlyLoggedUser.firstName @ViewBag.currentlyLoggedUser.lastName</a>
+                @if (ViewBag.currentlyLoggedUser != null)
+                {
+                    <a href="/account" class="header__menu__item">@ViewBag.currentlyLoggedUser.firstName @ViewBag.currentlyLoggedUser.lastName</a>
                     <a href="/login/logout" class="header__menu__item">Wyloguj się</a>
                 }
-                else {
+                else
+                {
                     <a href="/login" class="header__menu__item">Zaloguj się</a>
                 }
             </div>
@@ -33,5 +39,7 @@
             @RenderBody()
         </div>
     </main>
+
+    <script type="text/javascript" src="/Content/js/util/Header.js"></script>
 </body>
 </html>

@@ -111,6 +111,7 @@
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -118,6 +119,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\account\account-avatar.css" />
+    <Content Include="Content\css\account\account-dashboard.css" />
+    <Content Include="Content\css\account\account-no-lost-person.css" />
+    <Content Include="Content\css\account\account-panel.css" />
+    <Content Include="Content\css\account\account.css" />
     <Content Include="Content\css\form\button\button-group.css" />
     <Content Include="Content\css\form\button\button.css" />
     <Content Include="Content\css\form\input.css" />
@@ -127,8 +133,10 @@
     <Content Include="Content\css\util\card.css" />
     <Content Include="Content\css\util\container.css" />
     <Content Include="Content\css\util\loading-overlay.css" />
+    <Content Include="Content\js\account\Account.js" />
     <Content Include="Content\js\account\AccountValidationResult.js" />
     <Content Include="Content\js\account\AccountValidationResultParser.js" />
+    <Content Include="Content\js\util\Alert.js" />
     <Content Include="Content\js\input\Input.js" />
     <Content Include="Content\js\input\InputRepository.js" />
     <Content Include="Content\js\input\InputValidator.js" />
@@ -138,17 +146,22 @@
     <Content Include="Content\js\modal\ModalTypeData.js" />
     <Content Include="Content\js\modal\ModalType.js" />
     <Content Include="Content\js\register\Register.js" />
+    <Content Include="Content\js\util\Header.js" />
     <Content Include="Content\js\util\LoadingOverlay.js" />
+    <Content Include="Content\js\util\validate.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\css\header\header.css" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Src\AccountUtil\Account.cs" />
     <Compile Include="Src\AccountUtil\AccountRepository.cs" />
+    <Compile Include="Src\AccountUtil\AccountUpdatePasswordEntity.cs" />
+    <Compile Include="Src\AccountUtil\AccountUtils.cs" />
     <Compile Include="Src\AccountUtil\Validation\AccountValidationResult.cs" />
     <Compile Include="Src\Config\ApplicationConfig.cs" />
     <Compile Include="Src\Config\DataFolderConfig.cs" />
@@ -161,6 +174,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Src\LoginUtil\LoginData.cs" />
+    <Compile Include="Src\LoginUtil\LoginService.cs" />
     <Compile Include="Src\LostPersonUtil\AdditionalDetails\LostPersonAdditionalDetail.cs" />
     <Compile Include="Src\LostPersonUtil\Address\CityLostPersonAddress.cs" />
     <Compile Include="Src\LostPersonUtil\Address\LostPersonAddress.cs" />
@@ -182,6 +197,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\LoginRegisterLayout.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

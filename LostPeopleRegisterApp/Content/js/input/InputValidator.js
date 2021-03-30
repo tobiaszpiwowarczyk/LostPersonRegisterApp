@@ -18,7 +18,5 @@ export default class InputValidator {
      *
      * @input - wprowadzona wartość do sprawdzenia
      */
-    validate(input) {
-        return this.validatorFn(input);
-    }
+    validate = (input) => this.validatorFn instanceof Promise ? this.validatorFn(input) : Promise.resolve(this.validatorFn(input));
 }
