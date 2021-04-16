@@ -1,5 +1,5 @@
 ﻿using LostPeopleRegisterApp.Src.CustomDatabaseUtil;
-using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -31,6 +31,15 @@ namespace LostPeopleRegisterApp.Src.Util
         }
 
 
+
+        /// <summary>
+        /// Metoda ma za zadanie zwrócić wszystkie elementy zapisane w danej tabeli
+        /// </summary>
+        /// <returns></returns>
+        public List<T> findAll() => this.collection.AsNoTracking().ToList();
+
+
+
         /// <summary>
         /// Metoda ma za zadanie wyszukać rekord według identyfikatora
         /// </summary>
@@ -38,7 +47,7 @@ namespace LostPeopleRegisterApp.Src.Util
         /// <returns>
         ///     Zwraca znaleziony obiekt
         /// </returns>
-        public virtual T findById(int id) => this.collection.FirstOrDefault(x => x.id == id);
+        public virtual T findById(int id) => this.collection.AsNoTracking().FirstOrDefault(x => x.id == id);
 
 
 
@@ -60,7 +69,8 @@ namespace LostPeopleRegisterApp.Src.Util
         /// <param name="obj">Obiekt, który ma być zaktualizowany</param>
         public virtual void update(T obj)
         {
-            context.Entry(obj).State = EntityState.Modified;
+            T existing = this.collection.FirstOrDefault(x => x.id == obj.id);
+            context.Entry(existing).CurrentValues.SetValues(obj);
             context.SaveChanges();
         }
     }

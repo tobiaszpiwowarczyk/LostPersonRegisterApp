@@ -149,6 +149,7 @@
     <Content Include="Content\css\util\loading-overlay.css" />
     <Content Include="Content\js\account\Account.js" />
     <Content Include="Content\js\account\AccountAdditionalDetail.js" />
+    <Content Include="Content\js\account\AccountList.js" />
     <Content Include="Content\js\account\AccountValidationResult.js" />
     <Content Include="Content\js\account\AccountValidationResultParser.js" />
     <Content Include="Content\js\home\Home.js" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Src\AccountUtil\RoleUtil\AccountRole.cs" />
     <Compile Include="Src\LostPersonUtil\ImageUtil\LostPersonImageUtils.cs" />
     <Compile Include="Src\LostPersonUtil\LostPersonSearchCriteria.cs" />
     <Compile Include="Src\LostPersonUtil\LostPersonService.cs" />
@@ -236,6 +238,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\LostPerson\Details.cshtml" />
     <Content Include="Views\LostPerson\Index.cshtml" />
+    <Content Include="Views\Account\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

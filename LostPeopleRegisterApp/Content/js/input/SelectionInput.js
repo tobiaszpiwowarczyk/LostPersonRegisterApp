@@ -8,13 +8,22 @@ export default class SelectionInput extends Input {
         if (!wrapper.classList.contains("input") && !wrapper.classList.contains("input--selection"))
             throw new Error("Akceptowane są tylko elementy z klasami \"input\" wraz z \"input--selection\".");
 
-        this.input.oninput = function() {
-            _self.value = {
-                value: parseInt(_self.input.value),
-                text: _self.input.options[_self.input.value].text
-            };
+        this.input.oninput = () => _self.setValue(_self.input.value, true);
+    }
 
-            _self.onChange(_self.value);
+
+    /*
+     * Metoda ustawia wartość pola wejściowego na aktualną
+     */
+    setValue(value, typed = false) {
+        this.value = {
+            value: parseInt(value),
+            text: this.input.options[value].text
         };
+
+        if (!typed)
+            this.input.value = this.value.value;
+
+        this.onChange(this.value);
     }
 }

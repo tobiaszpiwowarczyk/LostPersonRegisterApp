@@ -104,6 +104,30 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil
 
 
         /// <summary>
+        /// Metoda ma za zadanie zaktualizować dane osoby zaginionej.
+        /// Jeżeli imię lub nazwisko zostało zmienione, wówczas zmieniana jest
+        /// nazwa folderu ze zdjęciem osoby zginionej
+        /// </summary>
+        /// <param name="lostPerson"></param>
+        public void updateLostPerson(LostPerson lostPerson)
+        {
+            LostPerson foundLostPerson = this.lostPersonRepository.findById(lostPerson.id);
+            lostPerson.additionalDetails = null;
+            lostPerson.images = null;
+            lostPerson.address.lostPersonId = lostPerson.id;
+
+            this.lostPersonRepository.update(lostPerson);
+            LostPerson updated = this.lostPersonRepository.findById(lostPerson.id);
+
+            string prevPath = this.lostPersonAppConfig.dataFolder.path + "\\" + LostPersonUtils.getFullFilePath(foundLostPerson);
+            string currPath = this.lostPersonAppConfig.dataFolder.path + "\\" + LostPersonUtils.getFullFilePath(updated);
+
+            if (prevPath != currPath)
+                Directory.Move(prevPath, currPath);
+        }
+
+
+        /// <summary>
         /// Metoda ma za zadanie wyszukać osoby zaginione wedlug podstawowych kryteriów wyszukiwania.
         /// Metoda ta posłuży do zwracania wyników w przyadku, gy używamy podstawowej wyszukiwarki na
         /// stronie internetowej. Metoda wyszukuje osoby wedłyug imienia i nazwiska.

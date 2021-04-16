@@ -34,15 +34,8 @@ export default class Input {
 
         this.onChange = (x) => {};
 
-        this.input.oninput = () => _self.validate().then(() => {
-            if (_self.input.getAttribute("type") == "number")
-                _self.value = parseInt(_self.input.value);
-            else {
-                _self.value = _self.input.value;
-            }
-            
-            _self.onChange(_self.value);
-        });
+        this.setValue(this.input.value, false);
+        this.input.oninput = () => _self.validate().then(() => _self.setValue(_self.input.value, true));
     }
 
     /*
@@ -135,10 +128,32 @@ export default class Input {
 
 
     /*
+     * Metoda ustawia wartość pola wejściowego na aktualną
+     */
+    setValue(value, typed = false) {
+        if (this.input.getAttribute("type") == "number" || /^[0-9]+$/g.test(value)) {
+            this.value = parseInt(value);
+            if(isNaN(this.value))
+                this.value = "";
+        }
+        else
+            this.value = value;
+        
+        if (!typed)
+            this.input.value = value;
+
+        this.onChange(this.value);
+    }
+
+
+    /*
      * Metoda zwraca element przechowujący strukturę pola wejściowego
      */
     getWrapper = () => this.#wrapper;
 
 
+    /*
+     * Metoda sprawdza, czy wartość w polu wejściowym nie została wprowadzona
+     */
     isEmpty = () => this.value == null || this.value == "";
 }

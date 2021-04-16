@@ -30,9 +30,24 @@
                         <h2>@(ViewBag.currentlyLoggedUser.firstName + " " + ViewBag.currentlyLoggedUser.lastName)</h2>
                     </div>
                 </div>
-                <span>
-                    <p>Data dołączenia: <b>@ViewBag.currentlyLoggedUser.createdDate.ToString("yyyy-MM-dd HH:mm:ss")</b></p>
-                </span>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Właściwość</th>
+                            <th>Wartość</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data dołączenia</td>
+                            <td><b>@ViewBag.currentlyLoggedUser.createdDate.ToString("yyyy-MM-dd HH:mm:ss")</b></td>
+                        </tr>
+                        <tr>
+                            <td>Rola</td>
+                            <td><b>@ViewBag.currentlyLoggedUser.accountRole.name</b></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="card account-dashboard__section__item account-panel update-user-data-panel">

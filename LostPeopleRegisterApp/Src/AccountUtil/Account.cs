@@ -1,4 +1,5 @@
-﻿using LostPeopleRegisterApp.Src.CustomDatabaseUtil;
+﻿using LostPeopleRegisterApp.Src.AccountUtil.RoleUtil;
+using LostPeopleRegisterApp.Src.CustomDatabaseUtil;
 using LostPeopleRegisterApp.Src.LostPersonUtil;
 using System;
 using System.Collections.Generic;
@@ -66,9 +67,24 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
 
 
         /// <summary>
+        /// Identyfikator uprawnienia użytkownika
+        /// </summary>
+        [Required]
+        [Column("account_role_id")]
+        public int accountRoleId { get; set; }
+
+
+        /// <summary>
         /// Lista osób zaginionych, które zostały utworzone przez to konto
         /// </summary>
         /// <see cref="LostPerson"/>
         public virtual List<LostPerson> lostPersonList { get; set; } = new List<LostPerson>();
+
+
+        /// <summary>
+        /// Obiekt zawierający dane uprawnień użytkownika
+        /// </summary>
+        /// <see cref="AccountRole"/>
+        public virtual AccountRole accountRole { get; set; }
     }
 }

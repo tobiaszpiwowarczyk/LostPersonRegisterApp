@@ -5,6 +5,7 @@ using LostPeopleRegisterApp.Src.LostPersonUtil.ImageUtil;
 using LostPeopleRegisterApp.Src.AccountUtil;
 using System.Data.Entity;
 using LostPeopleRegisterApp.Src.LostPersonUtil.Status;
+using LostPeopleRegisterApp.Src.AccountUtil.RoleUtil;
 
 namespace LostPeopleRegisterApp.Src.CustomDatabaseUtil
 {
@@ -36,6 +37,7 @@ namespace LostPeopleRegisterApp.Src.CustomDatabaseUtil
             ModelBuilderUtils modelBuilderUtils = new ModelBuilderUtils(modelBuilder);
 
             modelBuilderUtils.createInheritanceMapping<Account>("account");
+            modelBuilderUtils.createInheritanceMapping<AccountRole>("account_role");
             modelBuilderUtils.createInheritanceMapping<LostPerson>("lost_person");
             modelBuilderUtils.createInheritanceMapping<LostPersonImage>("lost_person_image");
             modelBuilderUtils.createInheritanceMapping<LostPersonAdditionalDetail>("lost_person_additional_details");
@@ -47,6 +49,11 @@ namespace LostPeopleRegisterApp.Src.CustomDatabaseUtil
                 .HasMany(x => x.lostPersonList)
                 .WithRequired(x => x.account)
                 .HasForeignKey(x => x.createdAccountId);
+
+            modelBuilder.Entity<AccountRole>()
+                .HasMany(x => x.accounts)
+                .WithRequired(x => x.accountRole)
+                .HasForeignKey(x => x.accountRoleId);
 
             modelBuilder.Entity<LostPersonStatus>()
                 .HasMany(x => x.lostPeople)

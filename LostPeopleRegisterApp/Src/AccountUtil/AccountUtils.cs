@@ -29,5 +29,17 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
                 
             return current;
         }
+
+
+
+        /// <summary>
+        /// Metoda sprawdza, czy konto posiada uprawnienia administratora
+        /// </summary>
+        /// <param name="account">Konto do sprawdzenia</param>
+        /// <returns>
+        ///     Zwraca 'true' jeżeli konto posiada takie uprawnienia.
+        ///     Zwraca 'false' w przeciwnym przypadku
+        /// </returns>
+        public static bool isAdmin(Account account) => account.accountRole.name == "Administrator";
     }
 }

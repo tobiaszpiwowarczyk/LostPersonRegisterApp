@@ -71,7 +71,7 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil
         /// </summary>
         [Column("created_date")]
         [Required]
-        public DateTime createdDate { get; set; } = DateTime.Now;
+        public DateTime? createdDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Identyfikator statusu osoby zaginionej

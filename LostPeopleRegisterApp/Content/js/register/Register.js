@@ -12,9 +12,6 @@ import validate from "/Content/js/util/validate.js";
 var registerButton      = document.querySelector(".register-button"),
     inputRepository     = new InputRepository(document.querySelectorAll(".input")),
     modal               = new Modal(".modal-overlay", {type: ModalType.SUCCESS}),
-    today               = new Date(),
-    month               = (today.getMonth() > 10 ? "" : "0") + today.getMonth(),
-    day                 = (today.getDate() > 10 ? "" : "0") + today.getDate(),
     overlay             = new LoadingOverlay(".loading-overlay")
 ;
 

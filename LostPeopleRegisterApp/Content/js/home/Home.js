@@ -39,7 +39,11 @@ searchBoxAdvancedSettingsModal.onOpen = () => searchBoxAdvancdDetailsFormInputRe
 searchBoxAdvancdDetailsFormInputRepository.getInputByName("minHeight")
     .addValidator(
         "Wartość nie może być większa niż maksymalny wzrost",
-        x => searchBoxAdvancdDetailsFormInputRepository.getInputByName("maxHeight").isEmpty() || searchBoxAdvancdDetailsFormInputRepository.getInputByName("minHeight").isEmpty() || parseInt(x) <= parseInt(searchBoxAdvancdDetailsFormInputRepository.getInputByName("maxHeight").getValue())
+        x => {
+            console.log(searchBoxAdvancdDetailsFormInputRepository.getInputByName("maxHeight").getValue()); 
+
+            return searchBoxAdvancdDetailsFormInputRepository.getInputByName("maxHeight").isEmpty() || searchBoxAdvancdDetailsFormInputRepository.getInputByName("minHeight").isEmpty() || parseInt(x) <= parseInt(searchBoxAdvancdDetailsFormInputRepository.getInputByName("maxHeight").getValue());
+        }
     );
 
 searchBoxAdvancdDetailsFormInputRepository.getInputByName("maxHeight")

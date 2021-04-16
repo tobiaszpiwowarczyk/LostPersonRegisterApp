@@ -1,6 +1,5 @@
 ﻿using LostPeopleRegisterApp.Src.AccountUtil;
 using LostPeopleRegisterApp.Src.AccountUtil.Validation;
-using LostPeopleRegisterApp.Src.LoginUtil;
 using LostPeopleRegisterApp.Src.Util;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -54,6 +53,7 @@ namespace LostPeopleRegisterApp.Controllers
         [HttpPost]
         public ActionResult doRegister(Account account)
         {
+            account.accountRoleId = 1;
             this.accountRepository.create(account);
             return Json(new Dictionary<string, bool>() { { "registered", this.accountRepository.existsByUsername(account.username) } });
         }
@@ -69,7 +69,7 @@ namespace LostPeopleRegisterApp.Controllers
         public ActionResult validate(Account account) => Json(new List<AccountValidationResult>()
             {
                 new AccountValidationResult("username", account.username != null && !this.accountRepository.existsByUsername(account.username)),
-                new AccountValidationResult("emailAddress", account.emailAddress != null && this.accountRepository.existsByEmail(account.emailAddress))
+                new AccountValidationResult("emailAddress", account.emailAddress != null && !this.accountRepository.existsByEmail(account.emailAddress))
             });
     }
 }

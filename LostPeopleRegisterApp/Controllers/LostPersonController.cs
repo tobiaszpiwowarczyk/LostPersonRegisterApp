@@ -89,6 +89,24 @@ namespace LostPeopleRegisterApp.Controllers
 
 
         /// <summary>
+        /// Metoda ma za zadanie zaktualizować dane osoby zaginionej
+        /// </summary>
+        /// <returns>
+        ///     Zwraca obiekt w postaci JSON z informacją o zaktualizowaniu danych osoby zaginionej
+        /// </returns>
+        [HttpPost]
+        public ActionResult updateLostPerson()
+        {
+            this.lostPersonService.updateLostPerson(JsonConvert.DeserializeObject<LostPerson>(Request.Form["document"], new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All
+            }));
+            return Json(new { updated = true });
+        }
+
+
+
+        /// <summary>
         /// Metoda ma za zadanie wyszukać listę osób zaginionych według wprowadzonej w wyszukiwarkę wartości
         /// </summary>
         /// <param name="q">Wprowadzona wartość w wyszukiwarce</param>

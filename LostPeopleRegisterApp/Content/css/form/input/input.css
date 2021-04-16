@@ -114,3 +114,8 @@ select {
 .input.input--invalid .input__validator {
     display: block;
 }
+
+.input.input--hidden {
+    margin: 0;
+    display: none;
+}

@@ -1,20 +1,27 @@
 use LostRegisterApp;
 go
 
+set IDENTITY_INSERT dbo.account_role ON
+insert into account_role(id, name) values (1, 'Użytkownik');
+insert into account_role(id, name) values (2, 'Administrator');
+set IDENTITY_INSERT dbo.account_role OFF
+go
+
+
 
 SET IDENTITY_INSERT dbo.account ON 
 
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (1, N'jkowalski', N'hasl0123', N'Jan', N'Kowalski', N'jkowalski@gmail.com', CAST(N'2013-06-21' AS Date), CAST(N'2021-03-30T00:26:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (2, N'mstephens', N'hasl0123', N'Madeson', N'Stephens', N'mstephens@gmail.com', CAST(N'1996-05-12' AS Date), CAST(N'2020-06-25T16:07:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (3, N'lallison', N'hasl0123', N'Logan', N'Allison', N'lallison@gmail.com', CAST(N'1982-03-26' AS Date), CAST(N'2022-03-18T09:04:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (4, N'ycantrell', N'hasl0123', N'Yoshi', N'Cantrell', N'ycantrell@gmail.com', CAST(N'1977-06-09' AS Date), CAST(N'2019-05-03T16:05:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (5, N'ksmall', N'hasl0123', N'Kyla', N'Small', N'ksmall@gmail.com', CAST(N'0001-01-01' AS Date), CAST(N'2021-04-15T23:38:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (6, N'mjoyce', N'hasl0123', N'Magee', N'Joyce', N'mjoyce@gmail.com', CAST(N'1988-09-06' AS Date), CAST(N'2019-12-24T15:12:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (7, N'xshepherd', N'hasl0123', N'Xaviera', N'Shepherd', N'xshepherd@gmail.com', CAST(N'1996-01-17' AS Date), CAST(N'2020-09-18T21:10:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (8, N'jfarley', N'hasl0123', N'Justin', N'Farley', N'jfarley@gmail.com', CAST(N'1993-12-27' AS Date), CAST(N'2020-05-27T12:06:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (9, N'ehester', N'hasl0123', N'Erasmus', N'Hester', N'ehester@gmail.com', CAST(N'1999-09-24' AS Date), CAST(N'2019-10-23T23:10:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (10, N'areid', N'hasl0123', N'Aileen', N'Reid', N'areid@gmail.com', CAST(N'1987-10-07' AS Date), CAST(N'2019-05-24T13:06:00' AS SmallDateTime))
-INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date) VALUES (11, N'kleonard', N'hasl0123', N'Kaye', N'Leonard', N'kleonard@gmail.com', CAST(N'1978-05-07' AS Date), CAST(N'2021-12-12T20:13:00' AS SmallDateTime))
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (1, N'jkowalski', N'hasl0123', N'Jan', N'Kowalski', N'jkowalski@gmail.com', CAST(N'2013-06-21' AS Date), CAST(N'2021-03-30T00:26:00' AS SmallDateTime), 2)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (2, N'mstephens', N'hasl0123', N'Madeson', N'Stephens', N'mstephens@gmail.com', CAST(N'1996-05-12' AS Date), CAST(N'2020-06-25T16:07:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (3, N'lallison', N'hasl0123', N'Logan', N'Allison', N'lallison@gmail.com', CAST(N'1982-03-26' AS Date), CAST(N'2022-03-18T09:04:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (4, N'ycantrell', N'hasl0123', N'Yoshi', N'Cantrell', N'ycantrell@gmail.com', CAST(N'1977-06-09' AS Date), CAST(N'2019-05-03T16:05:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (5, N'ksmall', N'hasl0123', N'Kyla', N'Small', N'ksmall@gmail.com', CAST(N'0001-01-01' AS Date), CAST(N'2021-04-15T23:38:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (6, N'mjoyce', N'hasl0123', N'Magee', N'Joyce', N'mjoyce@gmail.com', CAST(N'1988-09-06' AS Date), CAST(N'2019-12-24T15:12:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (7, N'xshepherd', N'hasl0123', N'Xaviera', N'Shepherd', N'xshepherd@gmail.com', CAST(N'1996-01-17' AS Date), CAST(N'2020-09-18T21:10:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (8, N'jfarley', N'hasl0123', N'Justin', N'Farley', N'jfarley@gmail.com', CAST(N'1993-12-27' AS Date), CAST(N'2020-05-27T12:06:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (9, N'ehester', N'hasl0123', N'Erasmus', N'Hester', N'ehester@gmail.com', CAST(N'1999-09-24' AS Date), CAST(N'2019-10-23T23:10:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (10, N'areid', N'hasl0123', N'Aileen', N'Reid', N'areid@gmail.com', CAST(N'1987-10-07' AS Date), CAST(N'2019-05-24T13:06:00' AS SmallDateTime), 1)
+INSERT dbo.account (id, username, password, first_name, last_name, email_address, birth_date, created_date, account_role_id) VALUES (11, N'kleonard', N'hasl0123', N'Kaye', N'Leonard', N'kleonard@gmail.com', CAST(N'1978-05-07' AS Date), CAST(N'2021-12-12T20:13:00' AS SmallDateTime), 1)
 SET IDENTITY_INSERT dbo.account OFF
 GO
 SET IDENTITY_INSERT dbo.lost_person_status ON 

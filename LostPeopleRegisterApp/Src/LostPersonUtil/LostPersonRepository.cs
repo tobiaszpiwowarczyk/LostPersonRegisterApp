@@ -32,15 +32,6 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil
 
 
 
-        /// <summary>
-        /// Metoda ta ma za zadanie wyciągnąć listę wszystkich osób zaginionych
-        /// </summary>
-        /// <returns>
-        ///     Zwracana jest lista osób zaginionych.
-        /// </returns>
-        /// <see cref="LostPerson"/>
-        public List<LostPerson> findAll() => this.collection.AsNoTracking().ToList();
-
 
 
         /// <summary>

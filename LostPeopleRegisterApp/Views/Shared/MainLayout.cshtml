@@ -24,6 +24,9 @@
             <div class="header__section">
                 @if (ViewBag.currentlyLoggedUser != null)
                 {
+                    if(ViewBag.currentlyLoggedUser.accountRole.id == 2) {
+                        <a href="/account/list" class="header__menu__item">Użytkownicy</a>
+                    }
                     <a href="/account" class="header__menu__item">@ViewBag.currentlyLoggedUser.firstName @ViewBag.currentlyLoggedUser.lastName</a>
                     <a href="/login/logout" class="header__menu__item">Wyloguj się</a>
                 }

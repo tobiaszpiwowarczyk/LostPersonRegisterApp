@@ -9,6 +9,13 @@ use LostPeopleRegister;
 go
 
 
+create table account_role (
+    id int not null primary key identity(1, 1),
+    name nvarchar(100) not null unique
+);
+go
+
+
 create table account
 (
 	  id int not null primary key identity(1, 1)
@@ -19,6 +26,7 @@ create table account
 	, email_address varchar(40) not null unique
 	, birth_date date
 	, created_date smalldatetime default getdate()
+    , account_role_id int not null foreign key references account_role(id) default 1
 	, constraint birth_date_check check(birth_date < getdate())
 );
 go

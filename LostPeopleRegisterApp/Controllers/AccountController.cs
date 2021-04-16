@@ -53,6 +53,25 @@ namespace LostPeopleRegisterApp.Controllers
 
 
         /// <summary>
+        /// Metoda ma za zadanie wywietlić stronę, która będzie 
+        /// zawierała listę wszystkich użytkowników. Dostęp do tego mają
+        /// tylko administratrzy
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult List()
+        {
+            if (!this.loginService.isAccountLogged() || !AccountUtils.isAdmin(this.loginService.getCurrentlyLoggedAccount()))
+                return Redirect("/");
+
+            ViewBag.currentlyLoggedUser = this.loginService.getCurrentlyLoggedAccount();
+            ViewBag.accounts = this.accountRepository.findAll();
+
+            return View();
+        }
+
+
+
+        /// <summary>
         /// Metoda ma za zadanie zaktualizować dane użytkownika i zapisać te dane w bazie danych
         /// </summary>
         /// <param name="account">Dane konta, które mają być zaktualizowane</param>
@@ -66,12 +85,42 @@ namespace LostPeopleRegisterApp.Controllers
         {
             Account currentAccount = AccountUtils.updateAccount(this.loginService.getCurrentlyLoggedAccount(), account);
 
+            if (account.accountRoleId == 0)
+            {
+                currentAccount.accountRoleId = this.loginService.getCurrentlyLoggedAccount().accountRole.id;
+            }
+
             this.accountRepository.update(currentAccount);
             this.loginService.update(currentAccount);
 
             ViewBag.currentlyLoggedUser = this.loginService.getCurrentlyLoggedAccount();
 
             return Json(new Dictionary<string, bool>() { { "updated", true } });
+        }
+
+
+
+        /// <summary>
+        /// Metoda ma za zadanie zaktualizować uprawnienia użytkownika
+        /// </summary>
+        /// <param name="accountId">Identyfikator konta</param>
+        /// <param name="roleId">Identyfikator roli, na którą należy zaktualizować</param>
+        /// <returns>
+        ///     Zwraca obiekt w postaci JSON z informacją o pomyślnej aktualizacji konta
+        /// </returns>
+        [HttpPost]
+        public ActionResult updateAccountRole(int accountId, int roleId)
+        {
+            if (this.loginService.isAccountLogged() && AccountUtils.isAdmin(this.loginService.getCurrentlyLoggedAccount()))
+            {
+                Account foundAccount = this.accountRepository.findById(accountId);
+                foundAccount.accountRoleId = roleId;
+                this.accountRepository.update(foundAccount);
+
+                return Json(new { updated = true });
+            }
+
+            return Json(new { updated = false });
         }
 
 

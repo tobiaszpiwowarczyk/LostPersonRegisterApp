@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName + " - Szczegóły";
+}
+
+<link rel="stylesheet" type="text/css" href="/Content/css/table/table.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/modal/modal.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/button/button.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/input/input.css?v=@DateTime.Now" />
+
+<h1>Lista użytkowników</h1>
+
+<div class="card" style="margin-top: 20px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Identyfikator konta</th>
+                <th>Nazwa użytkownika</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Adres e-mail</th>
+                <th>Data urodzenia</th>
+                <th>Data utworzenia</th>
+                <th>Rola</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Account account in ViewBag.accounts) 
+            {
+                <tr>
+                    <td>@account.id</td>
+                    <td>@account.username</td>
+                    <td>@account.firstName</td>
+                    <td>@account.lastName</td>
+                    <td>@account.emailAddress</td>
+                    <td>@account.birthDate.ToString("dd-MMM-yyyy")</td>
+                    <td>@account.createdDate.ToString("dd-MMM-yyyy HH:mm:ss")</td>
+                    <td>@account.accountRole.name</td>
+                    <td>
+                        @if(account.id != ViewBag.currentlyLoggedUser.id) 
+                        {
+                            <a href="#" class="change-account-role-link" 
+                                data-accountid="@account.id" 
+                                data-roleid="@account.accountRole.id">Zmień uprawnienia</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-overlay" id="change-user-role-modal">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title">Zmień uprawnienia użytkownika</div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content">
+            <div class="change-user-role-form">
+                Użytkownik: <b class="user-data"></b>
+                <div class="input input--selection">
+                    <label for="role" class="input__label">Status</label>
+                    <select name="role" id="status">
+                        <option value="1">Użytkownik</option>
+                        <option value="2">Administrator</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal__section modal__footer">
+            <div class="button-group">
+                <button class="button modal__close-button modal__close-button--approve">Zaktualizuj</button>
+                <button class="button modal__close-button">Anuluj</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/Content/js/account/AccountList.js?v=@DateTime.Now"></script>
