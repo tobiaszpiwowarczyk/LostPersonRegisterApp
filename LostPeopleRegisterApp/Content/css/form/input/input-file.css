@@ -1,0 +1,34 @@
+﻿/*
+ * Arkusz styli ma za zadanie skonfigurować wygląd kontrolki
+ * pola wejściowego do wysyłania plików
+ */
+
+:root {
+    --inputImagePreviewWidth: 300px;
+}
+
+.input.input--file {
+    position: relative;
+}
+
+.input.input--file .input__image-preview {
+    position: relative;
+    width: var(--inputImagePreviewWidth);
+    height: var(--inputImagePreviewWidth);
+    border: 2px solid var(--blue);
+    border-radius: 3px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+}
+
+.input.input--file input {
+    display: none;
+}
+
+.input.input--file .input__label {
+    margin: 0 auto;
+    cursor: pointer;
+    width: var(--inputImagePreviewWidth);
+}

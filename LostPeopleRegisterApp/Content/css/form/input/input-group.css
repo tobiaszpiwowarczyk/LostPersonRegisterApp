@@ -1,0 +1,22 @@
+﻿/*
+ * Arkusz styli definiujący wygląd elementu, który posłuży
+ * do wyświetlenia grupy pól wejściowych
+ */
+
+.input-group {
+    position: relative;
+    display: flex;
+    width: 400px;
+}
+
+.input-group .input {
+    margin: var(--inputMargin) 10px;
+}
+
+.input-group .input:first-child {
+    margin-left: 0;
+}
+
+.input-group .input:last-child {
+    margin-right: 0;
+}

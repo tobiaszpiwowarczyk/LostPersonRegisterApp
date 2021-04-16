@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName + " - Szczegóły";
+    ViewBag.index = 1;
+}
+
+<link rel="stylesheet" type="text/css" href="/Content/css/table/table.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/lost-person/lost-person.css?v=@DateTime.Now" />
+
+<div class="lost-person-header">
+    <h1>Wyniki wyszukiwania</h1>
+
+    <div class="lost-person-header__criterias">
+        @if(ViewBag.query != null) {
+            <div class="lost-person-header__criteria">
+                Wprowadzona wartość: <b>@ViewBag.query</b>
+            </div>
+        }
+        else {
+            if(ViewBag.criteria.minHeight != null) {
+                <div class="lost-person-header__criteria">
+                    Minimalny wzrost: <b>@(ViewBag.criteria.minHeight)cm</b>
+                </div>
+            }
+
+            if(ViewBag.criteria.maxHeight != null) {
+                <div class="lost-person-header__criteria">
+                    Maksymalny wzrost: <b>@(ViewBag.criteria.maxHeight)cm</b>
+                </div>
+            }
+
+            if(ViewBag.criteria.minLostPersonDate != null) {
+                <div class="lost-person-header__criteria">
+                    Początkowa data zaginięcia: <b>@ViewBag.criteria.minLostPersonDate.ToString("yyyy-MM-dd")</b>
+                </div>
+            }
+
+            if(ViewBag.criteria.maxLostPersonDate != null) {
+                <div class="lost-person-header__criteria">
+                    Końcowa data zaginięcia: <b>@ViewBag.criteria.maxLostPersonDate.ToString("yyyy-MM-dd")</b>
+                </div>
+            }
+            
+            if(ViewBag.criteria.lastPlaceName != null) {
+                <div class="lost-person-header__criteria">
+                    Ostatnie miejsce pobytu: <b>@ViewBag.criteria.lastPlaceName</b>
+                </div>
+            }
+
+            if(ViewBag.criteria.statusId != null) {
+                <div class="lost-person-header__criteria">
+                    Status: <b>@(ViewBag.criteria.statusId == 1 ? "Nieodnaleziony" : "Odnaleziony")</b>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+@if(ViewBag.lostPeople.Count == 0) 
+{
+    <h2>Nie udało nam się znaleźć osób o wprowadzonych kryteriach</h2>
+}
+else 
+{
+
+<link rel="stylesheet" type="text/css" href="/Content/css/util/profile-image.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/button/button.css?v=@DateTime.Now" />
+
+<div class="card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Zdjęcie</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Data zaginięcia</th>
+                <th>Wzrost</th>
+                <th>Ostatnie miejsce pobytu</th>
+                <th>Status</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(LostPerson lostPerson in ViewBag.lostPeople) 
+            {
+                <tr>
+                    <td>@(ViewBag.index++)</td>
+                    <td>
+                        @if(lostPerson.images.Count > 0) {
+                            <div class="lost-person-thumbnail" data-image="@LostPersonImageUtils.convertImageToBase64(@ViewBag.appConfig.dataFolder.path + LostPersonUtils.getFullFilePath(@lostPerson) + "\\" + lostPerson.images[0].imageName)"></div>
+                        }
+                        else {
+                            <div class="lost-person-thumbnail" data-image=""></div>
+                        }
+                    </td>
+                    <td>@lostPerson.firstName</td>
+                    <td>@lostPerson.lastName</td>
+                    <td>@lostPerson.lostPersonDate.ToString("yyyy-MM-dd")</td>
+                    <td>@(lostPerson.height)cm</td>
+                    <td>@lostPerson.lastPlaceName</td>
+                    <td>
+                        <span class="table__cell__lost-person-status table__cell__lost-person-status--@(lostPerson.status.id == 1 ? "bad" : "good")">@lostPerson.status.name</span>
+                    </td>
+                    <td>
+                        <a target="_blank" href="/lostPerson/details?lostPersonId=@lostPerson.id">Szczegóły</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="module" src="/Content/js/lost-person/LostPerson.js"></script>
+}

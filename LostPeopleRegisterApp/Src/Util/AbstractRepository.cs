@@ -1,4 +1,5 @@
 ﻿using LostPeopleRegisterApp.Src.CustomDatabaseUtil;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
@@ -49,6 +50,7 @@ namespace LostPeopleRegisterApp.Src.Util
         {
             this.collection.Add(obj);
             this.context.SaveChanges();
+            this.context.Entry(obj).Reload();
         }
 
 

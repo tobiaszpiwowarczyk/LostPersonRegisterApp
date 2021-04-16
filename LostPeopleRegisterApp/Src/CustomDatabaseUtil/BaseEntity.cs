@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LostPeopleRegisterApp.Src.CustomDatabaseUtil
 {
@@ -13,6 +14,7 @@ namespace LostPeopleRegisterApp.Src.CustomDatabaseUtil
         /// <summary>
         /// Identyfikator.
         /// </summary>
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
     }

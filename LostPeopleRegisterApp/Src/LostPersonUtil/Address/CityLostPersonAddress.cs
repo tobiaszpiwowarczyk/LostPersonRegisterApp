@@ -27,6 +27,7 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil.Address
         /// Numer mieszkania
         /// </summary>
         [Required]
+        [Column("flat_number")]
         public int flatNumber { get; set; }
     }
 }

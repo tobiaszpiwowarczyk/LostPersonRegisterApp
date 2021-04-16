@@ -6,9 +6,26 @@
 @if (ViewBag.lostPersonList.Count > 0)
 {
 <link rel="stylesheet" type="text/css" href="~/Content/css/home/home.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/form/button/button.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/modal/modal.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/form/input/input.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/util/profile-image.css?v=@DateTime.Now" />
 
 <div class="search-box">
-    <input type="text" class="search-box__input" placeholder="Wyszukaj osobę..." />
+    <div class="search-box__content">
+        <div class="search-box__form">
+            <input type="text" class="search-box__input" placeholder="Wyszukaj osobę..." autofocus/>
+            <a href="#" target="_blank" class="button search-box__button">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="search-box__options">
+            <a href="#" class="search-box__advanced-settings">
+                <span>Zaawansowane</span>
+            </a>
+        </div>
+        <div class="search-box__results"></div>
+    </div>
 </div>
 
 <div class="last-registered-person-wrapper">
@@ -17,17 +34,83 @@
     <div class="last-registered-person-list">
         @foreach (LostPerson lostPerson in ViewBag.lostPersonList)
         {
-            <div class="last-registered-person-card">
-                <div class="last-registered-person-card__image">
-                    <img src="#" alt="@lostPerson.firstName @lostPerson.lastName" />
-                </div>
+            <a href="/lostPerson/details?lostPersonId=@lostPerson.id" target="_blank" class="last-registered-person-card">
+                @if(lostPerson.images.Count > 0) {
+                    <div class="last-registered-person-card__image @(lostPerson.images.Count > 0 ? "" : "last-registered-person-card__image--blank")">
+                        <div class="last-registered-person-card__image__display" data-image="@LostPersonImageUtils.convertImageToBase64(@ViewBag.appConfig.dataFolder.path + LostPersonUtils.getFullFilePath(@lostPerson) + "\\" + lostPerson.images[0].imageName)"></div>
+                    </div>
+                }
+                else {
+                    <div class="last-registered-person-card__image last-registered-person-card__image--blank">
+                        <div class="last-registered-person-card__image__display"></div>
+                    </div>
+                }
+
                 <div class="last-registered-person-card__caption">
                     <h3>@lostPerson.firstName @lostPerson.lastName</h3>
                 </div>
-            </div>
+            </a>
         }
     </div>
 </div>
+
+
+<div class="modal-overlay" id="search-box-advanced-settings-modal">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title">Zaawansowane wyszukiwanie</div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content">
+            <div class="search-box-advanecd-details__form">
+                <div class="input-group">
+                    <div class="input">
+                        <label for="minHeight" class="input__label">Minimalny wzrost</label>
+                        <input type="number" name="minHeight" id="minHeight" min="1" />
+                    </div>
+                    <div class="input">
+                        <label for="maxHeight" class="input__label">Maksymalny wzrost</label>
+                        <input type="number" name="maxHeight" id="maxHeight" min="1" />
+                    </div>
+                </div>
+                <div class="search-box-advanced-details__form__section">
+                    <h3>Data zaginięcia osoby</h3>
+                    <div class="input">
+                        <label for="minLostPersonDate" class="input__label">Data początkowa</label>
+                        <input type="date" name="minLostPersonDate" id="minLostPersonDate" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="input">
+                        <label for="maxLostPersonDate" class="input__label">Data końcowa</label>
+                        <input type="date" name="maxLostPersonDate" id="maxLostPersonDate" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="lastPlaceName" class="input__label">Ostatnie miejsce pobytu</label>
+                    <input type="text" name="lastPlaceName" id="lastPlaceName" min="1" />
+                </div>
+                <div class="input input--selection">
+                    <label for="status" class="input__label">Status</label>
+                    <select name="status" id="status">
+                        <option value="0">Wybierz status</option>
+                        <option value="1">Nieodnaleziony</option>
+                        <option value="2">Odnaleziony</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal__section modal__footer">
+            <div class="button-group">
+                <button class="button modal__close-button modal__close-button--approve">OK</button>
+                <button class="button modal__close-button">Anuluj</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/Content/js/home/Home.js??v=@DateTime.Now"></script>
 }
 else
 {

@@ -1,0 +1,44 @@
+﻿/*
+ * Arkusz styli mający za zadanie skonfigurować wygląd elementu
+ * wyświetlającego formularz do tworzenia nowej osoby zaginionej
+ */
+
+.account-create-lost-person-form {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.account-create-lost-person-form__section {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-create-lost-person-form__input-section {
+    position: relative;
+    margin: 15px 0;
+}
+
+.account-create-lost-person-form__input-section:first-child {
+    margin-top: 0;
+}
+
+.account-create-lost-person-form__input-section:last-child {
+    margin-bottom: 0;
+}
+
+
+.account-additional-details-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-additional-details-list {
+    position: relative;
+    margin: 15px 0;
+}

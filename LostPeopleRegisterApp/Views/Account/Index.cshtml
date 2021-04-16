@@ -1,14 +1,17 @@
 ﻿@{
     Layout = "~/Views/Shared/MainLayout.cshtml";
     Page.Title = ViewBag.appConfig.application.fullName;
+    ViewBag.index = 1;
 }
 
 <link rel="stylesheet" type="text/css" href="~/Content/css/modal/modal.css?v=@DateTime.Now" />
 <link rel="stylesheet" type="text/css" href="/Content/css/account/account.css?v=@DateTime.Now" />
 <link rel="stylesheet" type="text/css" href="/Content/css/form/button/button.css?v=@DateTime.Now" />
-<link rel="stylesheet" type="text/css" href="/Content/css/form/input.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/input/input.css?v=@DateTime.Now" />
 <link rel="stylesheet" type="text/css" href="/Content/css/util/loading-overlay.css?v=@DateTime.Now" />
 <link rel="stylesheet" type="text/css" href="/Content/css/util/alert.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/table/table.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/util/profile-image.css?v=@DateTime.Now" />
 
 <div class="account-dashboard">
     <div class="account-dashboard__section account-dashboard__section--horizontal">
@@ -75,7 +78,7 @@
                 <div class="account-panel__header__title">
                     <h1>Lista dodanych zaginionych</h1>
                 </div>
-                <button class="button">Dodaj nową zaginioną osobę</button>
+                <button class="button create-new-lost-person-button">Dodaj nową zaginioną osobę</button>
             </div>
             <div class="account-panel__section account-panel__content">
                 @if(ViewBag.currentlyLoggedUser.lostPersonList.Count == 0) {
@@ -84,6 +87,50 @@
                         <h1>Nie dodałeś żadnej zaginionej osoby.</h1>
                         <p>Aby ją dodać, kliknij w przycisk <b>Dodaj nową zaginioną osobę</b></p>
                     </div>
+                }
+                else {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Zdjęcie</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>Data zaginięcia</th>
+                                <th>Wzrost</th>
+                                <th>Ostatnie miejsce pobytu</th>
+                                <th>Status</th>
+                                <th>Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(LostPerson lostPerson in ViewBag.currentlyLoggedUser.lostPersonList) 
+                            {
+                                <tr>
+                                    <td>@(ViewBag.index++)</td>
+                                    <td>
+                                        @if(lostPerson.images.Count > 0) {
+                                            <div class="lost-person-thumbnail" data-image="@LostPersonImageUtils.convertImageToBase64(@ViewBag.appConfig.dataFolder.path + LostPersonUtils.getFullFilePath(@lostPerson) + "\\" + lostPerson.images[0].imageName)"></div>
+                                        }
+                                        else {
+                                            <div class="lost-person-thumbnail" data-image=""></div>
+                                        }
+                                    </td>
+                                    <td>@lostPerson.firstName</td>
+                                    <td>@lostPerson.lastName</td>
+                                    <td>@lostPerson.lostPersonDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@(lostPerson.height)cm</td>
+                                    <td>@lostPerson.lastPlaceName</td>
+                                    <td>
+                                        <span class="table__cell__lost-person-status table__cell__lost-person-status--@(lostPerson.status.id == 1 ? "bad" : "good")">@lostPerson.status.name</span>
+                                    </td>
+                                    <td>
+                                        <a target="_blank" href="/lostPerson/details?lostPersonId=@lostPerson.id">Szczegóły</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 }
             </div>
         </div>
@@ -125,7 +172,7 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="update-password-modal">
+<div class="modal-overlay" id="update-account-details-modal">
     <div class="modal">
         <div class="modal__section modal__header">
             <div class="modal__header__icon">
@@ -137,6 +184,118 @@
         <div class="modal__section modal__content"></div>
         <div class="modal__section modal__footer">
             <button class="button modal__close-button modal__close-button--approve">OK</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="create-new-lost-person-modal">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title">Dodaj nową zaginioną osobę</div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content">
+            <div class="account-create-lost-person-form">
+                <div class="account-create-lost-person-form__section">
+                    <div class="account-create-lost-person-form__input-section">
+                        <h2>Zdjęcie osoby</h2>
+                        <div class="input input--file">
+                            <div class="input__image-preview"></div>
+                            <label for="thumbnail" class="input__label button">Wybierz plik</label>
+                            <input type="file" name="thumbnail" id="thumbnail" accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="account-create-lost-person-form__input-section">
+                        <h2>Znaki szczególne</h2>
+                        <div class="account-additional-details-wrapper">
+                            <div class="account-additional-details-list">
+                            </div>
+                            <div class="account-additional-details-form">
+                                <div class="input-group">
+                                    <div class="input">
+                                        <label for="additionalDetailAttribute" class="input__label">Nazwa znaku szczególnego</label>
+                                        <input type="text" name="additionalDetailAttribute" id="additionalDetailAttribute" />
+                                    </div>
+                                    <div class="input">
+                                        <label for="additionalDetailValue" class="input__label">Wartość</label>
+                                        <input type="text" name="additionalDetailValue" id="additionalDetailValue" />
+                                    </div>
+                                </div>
+                                <button class="button create-additionl-detail-button">Dodaj</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-create-lost-person-form__section">
+                    <div class="account-create-lost-person-form__input-section">
+                        <h2>Dane podstawowe</h2>
+                        <div class="input">
+                            <label for="lostPersonFirstName" class="input__label">Imię</label>
+                            <input type="text" name="lostPersonFirstName" id="lostPersonFirstName" />
+                        </div>
+                        <div class="input">
+                            <label for="lostPersonLastName" class="input__label">Nazwisko</label>
+                            <input type="text" name="lostPersonLastName" id="lostPersonLastName" />
+                        </div>
+                        <div class="input">
+                            <label for="lostPersonDate" class="input__label">Data zaginięcia osoby</label>
+                            <input type="date" name="lostPersonDate" id="lostPersonDate" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <div class="input">
+                            <label for="lastPlaceName" class="input__label">Ostatnie miejsce pobytu</label>
+                            <input type="text" name="lastPlaceName" id="lastPlaceName" />
+                        </div>
+                        <div class="input">
+                            <label for="height" class="input__label">Wzrost</label>
+                            <input type="number" name="height" id="height" min="1" />
+                        </div>
+                    </div>
+                    <div class="account-create-lost-person-form__input-section">
+                        <h2>Adres zamieszkania</h2>
+                        <div class="input input--choice">
+                            <input type="checkbox" name="inVillage" id="inVillage"/>
+                            <label for="inVillage" class="input__label">
+                                Osoba mieszkała we wsi
+                            </label>
+                        </div>
+                        <div class="input">
+                            <label for="city" class="input__label">Miasto</label>
+                            <input type="text" name="city" id="city" />
+                        </div>
+                        <div class="input">
+                            <label for="street" class="input__label">Ulica</label>
+                            <input type="text" name="street" id="street" />
+                        </div>
+                        <div class="input-group">
+                            <div class="input">
+                                <label for="flatNumber" class="input__label">Numer domu</label>
+                                <input type="number" name="flatNumber" id="flatNumber" min="1" />
+                            </div>
+                            <div class="input">
+                                <label for="apartmentNumber" class="input__label">Numer mieszkania</label>
+                                <input type="number" name="apartmentNumber" id="apartmentNumber" min="1" />
+                            </div>
+                        </div>
+                        <div class="input">
+                            <label for="village" class="input__label">Miejscowość</label>
+                            <input type="text" name="village" id="village" />
+                        </div>
+                        <div class="input">
+                            <label for="villageApartmentNumber" class="input__label">Numer domu</label>
+                            <input type="number" name="villageApartmentNumber" id="villageApartmentNumber" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal__section modal__footer">
+            <div class="button-group">
+                <button class="button modal__close-button modal__close-button--approve">Utwórz</button>
+                <button class="button modal__close-button">Anuluj</button>
+            </div>
         </div>
     </div>
 </div>

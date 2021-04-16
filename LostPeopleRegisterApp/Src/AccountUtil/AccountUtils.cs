@@ -1,4 +1,5 @@
 ﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -23,6 +24,7 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
         {
             typeof(Account).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                 .Where(prop => prop.GetValue(newAccount) != null)
+                .Where(prop => prop.GetValue(current).GetType().IsPrimitive || prop.GetValue(current).GetType() == typeof(string) || prop.GetValue(current).GetType() == typeof(DateTime))
                 .ForEach(prop => prop.SetValue(current, prop.GetValue(newAccount)));
                 
             return current;

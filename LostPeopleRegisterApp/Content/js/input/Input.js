@@ -1,30 +1,48 @@
-﻿import InputValidator from "/Content/js/input/InputValidator.js";
+﻿import InputData from "/Content/js/input/InputData.js";
+import InputValidator from "/Content/js/input/InputValidator.js";
 
 /*
  * Klasa, która ma za zadanie zarządzać odpowiednim polem, w którym będą
  * wprowadzane dane
  */
 export default class Input {
+    // element, który zawiera pole wejściowe
+    #wrapper;
 
-    // @wrapper - element, który zawiera pole wejściowe
-    constructor(wrapper) {
+    /*
+     * @wrapper   - element, który zawiera pole wejściowe
+     * @inputData - obiekt zawierający dodatkowe atrybuty dla pliku wejściowego
+     */
+    constructor(wrapper, inputData) {
         var _self = this;
+        var _inputData = Object.assign(new InputData(), inputData);
 
         if (!wrapper.classList.contains("input")) {
             throw new Error("Akceptowane są tylko elementy z klasą \"input\".");
         }
-        this.wrapper = wrapper;
-        this.input = this.wrapper.querySelector("input,textarea");
+        this.#wrapper = wrapper;
+        this.input = this.#wrapper.querySelector("input,textarea,select");
         
         this.name = this.input.name;
-        this.centered = this.wrapper.classList.contains("input--centered");
-        this.invalid = this.wrapper.classList.contains("input--invalid");
+        this.centered = this.#wrapper.classList.contains("input--centered");
+        this.invalid = this.#wrapper.classList.contains("input--invalid");
         this.validatorElement = null;
         this.validators = [];
+        this.value = null;
+
+        this.width = _inputData.width;
 
         this.onChange = (x) => {};
 
-        this.input.addEventListener("input", () => _self.validate().then(() => _self.onChange(_self.input.value)), false);
+        this.input.oninput = () => _self.validate().then(() => {
+            if (_self.input.getAttribute("type") == "number")
+                _self.value = parseInt(_self.input.value);
+            else {
+                _self.value = _self.input.value;
+            }
+            
+            _self.onChange(_self.value);
+        });
     }
 
     /*
@@ -37,10 +55,11 @@ export default class Input {
     setInvalid(invalid) {
         this.invalid = invalid;
         if(invalid)
-            this.wrapper.classList.add("input--invalid");
+            this.#wrapper.classList.add("input--invalid");
         else {
-            this.wrapper.classList.remove("input--invalid");
-            this.validatorElement.innerHTML = "";
+            this.#wrapper.classList.remove("input--invalid");
+            if (this.validatorElement != null)
+                this.validatorElement.innerHTML = "";
         }
     }
 
@@ -59,7 +78,7 @@ export default class Input {
         if (this.validatorElement == null) {
             this.validatorElement = document.createElement("div");
             this.validatorElement.classList.add("input__validator");
-            this.wrapper.appendChild(this.validatorElement);
+            this.#wrapper.appendChild(this.validatorElement);
         }
     }
 
@@ -102,11 +121,24 @@ export default class Input {
     /*
      * Metoda usuwa wartość, która została wprowadzona w dane pole wejściowe
      */
-    clear = () => this.input.value = "";
+    clear() {
+        this.input.value = "";
+        this.value = this.input.value;
+        this.onChange(this.value);
+    }
 
 
     /*
      * Metoda pobiera i zwraca wartość pola wejściowego
      */
-    getValue = () => this.input.value;
+    getValue = () => this.value;
+
+
+    /*
+     * Metoda zwraca element przechowujący strukturę pola wejściowego
+     */
+    getWrapper = () => this.#wrapper;
+
+
+    isEmpty = () => this.value == null || this.value == "";
 }

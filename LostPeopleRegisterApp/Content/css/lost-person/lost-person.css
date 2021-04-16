@@ -1,0 +1,22 @@
+﻿/*
+ * Arkusz styli, który ma definiować wygląd elementów
+ * wyświetlanych na stronie wyświetlającej listę wyszukanych osób zaginionych
+ */
+
+.lost-person-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.lost-person-header__criteria {
+    position: relative;
+    background: var(--blue);
+    color: var(--white);
+    padding: 10px 15px;
+    border-radius:  3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    display: inline-block;
+}

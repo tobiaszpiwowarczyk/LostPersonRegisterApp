@@ -1,13 +1,14 @@
 ﻿using LostPeopleRegisterApp.Src.CustomDatabaseUtil;
 using LostPeopleRegisterApp.Src.LostPersonUtil.AdditionalDetails;
 using LostPeopleRegisterApp.Src.LostPersonUtil.Address;
-using LostPeopleRegisterApp.Src.LostPersonUtil.Image;
+using LostPeopleRegisterApp.Src.LostPersonUtil.ImageUtil;
 using LostPeopleRegisterApp.Src.AccountUtil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LostPeopleRegisterApp.Src.LostPersonUtil.Status;
+using Newtonsoft.Json;
 
 namespace LostPeopleRegisterApp.Src.LostPersonUtil
 {
@@ -29,7 +30,7 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil
         /// Konto użytkownika, który zarejestrował osobę zaginioną
         /// </summary>
         /// <see cref="Account"/>
-        public Account account { get; set; }
+        public virtual Account account { get; set; }
 
         /// <summary>
         /// Imię osoby zaginionej
@@ -83,13 +84,13 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil
         /// Status osoby zaginionej
         /// </summary>
         /// <see cref="LostPersonStatus"/>
-        public LostPersonStatus status { get; set; }
+        public virtual LostPersonStatus status { get; set; }
 
         /// <summary>
         /// Adres osoby zaginionej
         /// </summary>
         /// <see cref="LostPersonAddress"/>
-        public LostPersonAddress address { get; set; }
+        public virtual LostPersonAddress address { get; set; }
 
         /// <summary>
         /// Lista zdjęć osoby zaginionej

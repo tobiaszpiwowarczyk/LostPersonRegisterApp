@@ -1,0 +1,34 @@
+﻿/*
+ * Arkusz styli mający na celu skonfigurować wygląd 
+ * zdjęcia profilowego
+ */
+
+:root {
+    --profileImageWidth: 50px;
+}
+
+.profile-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.profile-image i {
+    font-size: 72px;
+    color: var(--blue);
+}
+
+.profile-image--cornered {
+    border-radius: 3px;
+}
+
+.profile-image--shadowed {
+    box-shadow: 0 2px 2px rgba(0,0,0,.1);
+}

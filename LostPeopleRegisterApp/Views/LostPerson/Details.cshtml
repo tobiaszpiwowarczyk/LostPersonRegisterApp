@@ -1,0 +1,131 @@
+﻿@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    Page.Title = ViewBag.appConfig.application.fullName + " - Szczegóły";
+}
+
+<link rel="stylesheet" type="text/css" href="/Content/css/table/table.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/lost-person/lost-person-details.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/util/profile-image.css?v=@DateTime.Now" />
+<link rel="stylesheet" type="text/css" href="/Content/css/form/button/button.css?v=@DateTime.Now" />
+@if(ViewBag.lostPerson.account.id == ViewBag.currentlyLoggedUser.id && ViewBag.lostPerson.status.id == 1) 
+{
+<link rel="stylesheet" type="text/css" href="/Content/css/modal/modal.css?v=@DateTime.Now" />
+}
+
+<div class="card">
+    <div class="lost-person-details-dashboard">
+        <div class="lost-person-details-dashboard__section">
+            @if (ViewBag.lostPerson.images.Count > 0) {
+                <div class="lost-person-details__avatar" data-image="@LostPersonImageUtils.convertImageToBase64(@ViewBag.appConfig.dataFolder.path + LostPersonUtils.getFullFilePath(@ViewBag.lostPerson) + "\\" + ViewBag.lostPerson.images[0].imageName)"></div>   
+            }
+            else {
+                <div class="lost-person-details__avatar"></div>
+            }
+        </div>
+        <div class="lost-person-details-dashboard__section">
+            <div class="lost-person-details-dashboard__section__header">
+                <h1>@ViewBag.lostPerson.firstName @ViewBag.lostPerson.lastName</h1>
+                @if (ViewBag.lostPerson.account.id == ViewBag.currentlyLoggedUser.id && ViewBag.lostPerson.status.id == 1) 
+                {
+                    <form method="POST" action="/lostPerson/makeLostPersonFound?lostPersonId=@ViewBag.lostPerson.id">
+                        <button type="submit" class="button" id="mark-as-found-button">Oznacz jako odnalezioną</button>
+                    </form>
+                }
+            </div>
+            <div class="lost-person-details-dashboard__section__content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Atrybut</th>
+                            <th>Wartość</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Utworzono przez</td>
+                            <td>
+                                <b>@ViewBag.lostPerson.account.firstName @ViewBag.lostPerson.account.lastName</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Data zaginięcia osoby</td>
+                            <td><b>@ViewBag.lostPerson.lostPersonDate.ToString("dd MMM yyyy")</b></td>
+                        </tr>
+                        <tr>
+                            <td>Miejsce ostatniego pobytu osoby</td>
+                            <td><b>@ViewBag.lostPerson.lastPlaceName</b></td>
+                        </tr>
+                        <tr>
+                            <td>Wzrost</td>
+                            <td><b>@(ViewBag.lostPerson.height)cm</b></td>
+                        </tr>
+                        <tr>
+                            <td>Data utworzenia</td>
+                            <td><b>@ViewBag.lostPerson.createdDate.ToString("dd MMM yyyy, HH:mm:ss")</b></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <span class="table__cell__lost-person-status table__cell__lost-person-status--@(ViewBag.lostPerson.status.id == 1 ? "bad" : "good")">
+                                    @ViewBag.lostPerson.status.name
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Adres zamieszkania osoby</td>
+                            <td>
+                            @if(ViewBag.lostPerson.address is VillageLostPersonAddress) {
+                                <b>@ViewBag.lostPerson.address.village @ViewBag.lostPerson.address.apartmentNumber</b>
+                            }
+                            else {
+                                <b>
+                                    @(ViewBag.lostPerson.address.city), ul. @ViewBag.lostPerson.address.street @(ViewBag.lostPerson.address.flatNumber)/@ViewBag.lostPerson.address.apartmentNumber
+                                </b>
+                            }
+                            </td>
+                        </tr>
+                        @if(ViewBag.lostPerson.additionalDetails.Count > 0) 
+                        {
+                            <tr>
+                                <td>Znaki szczególne</td>
+                                <td>
+                                @foreach (LostPersonAdditionalDetail additionalDetail in ViewBag.lostPerson.additionalDetails)
+                                {
+                                    <span class="lost-person-additional-detail">@additionalDetail.attribute: @additionalDetail.value</span>
+                                }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if(ViewBag.lostPerson.account.id == ViewBag.currentlyLoggedUser.id && ViewBag.lostPerson.status.id == 1)
+{
+    <div class="modal-overlay" id="mark-as-found-modal">
+    <div class="modal">
+        <div class="modal__section modal__header">
+            <div class="modal__header__icon">
+                <i class="fas"></i>
+            </div>
+            <div class="modal__header__title"></div>
+            <div class="modal__close-button modal__header__close-button"></div>
+        </div>
+        <div class="modal__section modal__content">
+            <p>Czy na pewno chcesz oznaczyć osobę <b>@ViewBag.lostPerson.firstName @ViewBag.lostPerson.lastName</b> jako odnalezioną?</p>
+        </div>
+        <div class="modal__section modal__footer">
+            <div class="button-group">
+                <button class="button modal__close-button modal__close-button--approve">Tak</button>
+                <button class="button modal__close-button">Nie</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script type="module" src="/Content/js/lost-person/LostPersonDetails.js?v=@DateTime.Now"></script>

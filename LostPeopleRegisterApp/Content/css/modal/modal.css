@@ -8,20 +8,24 @@
     --modalWidth: 500px;
     --modalHeaderHeight: 60px;
     --modalSectionPadding: 20px;
-    --modalOpenTime: .4s;
+    --modalOpenTime: 400ms;
+    --modalTopPosition: 70px;
 }
 
 .modal {
     position: absolute;
     left: 50%;
-    top: 70px;
+    top: var(--modalTopPosition);
     transform: translateX(-50%) scale(0);
     background: var(--white);
     width: var(--modalWidth);
+    max-height: calc(100vh - var(--modalTopPosition) * 2);
     border-radius: 3px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
     overflow: hidden;
     transition: all var(--modalOpenTime) var(--bezier);
+    display: flex;
+    flex-direction: column;
 }
 
 .modal__section {
@@ -101,6 +105,7 @@
 .modal__content {
     display: flex;
     justify-content: center;
+    overflow-y: auto;
 }
 
 .modal__footer {

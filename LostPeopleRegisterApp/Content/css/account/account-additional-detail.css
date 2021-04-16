@@ -1,0 +1,41 @@
+﻿/*
+ * Arkusz styli, który ma za zadanie skonfigurować wygląd
+ * elementu wyświetlający znak szczególny osoby zaginionej.
+ * Ten element jest wykorzystywany w formularzyu do tworzenia nowych
+ * zaginionych osób
+ */
+
+.account-additional-detail {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: var(--blue);
+    justify-content: space-between;
+    color: var(--white);
+    padding: 20px;
+    border-radius: 3px;
+    margin: 10px 0;
+}
+
+.account-additional-detail:hover .account-additional-detail__actions .button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.account-additional-detail__actions {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+.account-additional-detail__actions .button {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    opacity: 0;
+    transform: translateY(20%);
+    transition: all .2s var(--bezier);
+}

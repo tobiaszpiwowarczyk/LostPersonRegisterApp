@@ -1,5 +1,6 @@
 ﻿using LostPeopleRegisterApp.Src.Config;
 using LostPeopleRegisterApp.Src.LoginUtil;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -33,6 +34,18 @@ namespace LostPeopleRegisterApp.Src.Util
             this.appConfig = LostPersonAppConfig.INSTANCE;
             ViewBag.appConfig = this.appConfig;
             this.loginService = new LoginService(Session);
+        }
+
+
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new CustomJsonResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
         }
     }
 }

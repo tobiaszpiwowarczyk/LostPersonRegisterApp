@@ -39,6 +39,43 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil
         ///     Zwracana jest lista osób zaginionych.
         /// </returns>
         /// <see cref="LostPerson"/>
-        public List<LostPerson> findAll() => this.collection.ToList();
+        public List<LostPerson> findAll() => this.collection.AsNoTracking().ToList();
+
+
+
+        /// <summary>
+        /// Metoda ma za zadanie zwrócić listę ostatnio utworzonych osób zaginionych w
+        /// bazie danych. Metoda ogranicza wynik do ilości podanej w parametrze
+        /// </summary>
+        /// <param name="ammount">Docelowa liczba osób zaginionych do zwrócenia</param>
+        /// <returns>
+        ///     Zwracana jest lista ostatnio zarejestrowanych osób zaginionych
+        /// </returns>
+        /// <see cref="LostPerson"/>
+        public List<LostPerson> findLastCreatedLostPeople(int ammount)
+            => this.collection.AsNoTracking().OrderByDescending(x => x.createdDate).Take(ammount).ToList();
+
+
+
+        /// <summary>
+        /// Metoda zwraca ostatnio utworzoną osobę zaginioną
+        /// </summary>
+        /// <returns></returns>
+        /// <see cref="LostPerson"/>
+        public LostPerson getLastCreatedLostPerson() => this.collection.AsNoTracking().Include(x => x.account).Include(x => x.status).OrderByDescending(x => x.createdDate).FirstOrDefault();
+
+
+
+        /// <summary>
+        /// Metoda ma za zadanie zwrócić listę osób zaginionych utworzonych przez dane konto
+        /// </summary>
+        /// <param name="accountId">Identyfikator konta</param>
+        /// <returns>
+        ///     Zwraca listę osób zaginionyhc, gdzie identyfikator konta, które utworzyło
+        ///     daną osobę jest równa przekazanemu parametrowi
+        /// </returns>
+        /// <see cref="LostPerson"/>
+        public List<LostPerson> findByAccountId(int accountId)
+            => this.collection.AsNoTracking().Include(x => x.account).Include(x => x.status).Where(x => x.createdAccountId == accountId).ToList();
     }
 }

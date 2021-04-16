@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using LostPeopleRegisterApp.Src.LostPersonUtil.Address.ConverterUtil;
+using System.Security.Policy;
+using System.Web.Http;
+using System.Web.Mvc;
 
 namespace LostPeopleRegisterApp
 {
@@ -17,11 +20,11 @@ namespace LostPeopleRegisterApp
         {
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config
+                .Formatters
+                .JsonFormatter
+                .SerializerSettings
+                .Converters.Add(new LostPersonAddressJsonConverter());
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿/*
+ * Arkusz styli, który posłuży do skonfigurowania
+ * wyglądu elementu wyświetlającego formularz do konfigurowania
+ * zaawansowanego wyszukiwania zaginionych osób
+ */
+
+.search-box-advanecd-details__form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-box-advanced-details__form__section {
+    position: relative;
+    margin: 10px 0;
+}

@@ -1,7 +1,5 @@
-﻿using LostPeopleRegisterApp.Src.LoginUtil;
-using LostPeopleRegisterApp.Src.LostPersonUtil;
+﻿using LostPeopleRegisterApp.Src.LostPersonUtil;
 using LostPeopleRegisterApp.Src.Util;
-using System.Threading;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -15,16 +13,18 @@ namespace LostPeopleRegisterApp.Controllers
     public class HomeController : AbstractController
     {
         /// <summary>
-        /// Repozytorium z listą osób zaginionych
+        /// Serwis do zarządzania listą osób zaginionych
         /// </summary>
-        /// <see cref="LostPersonRepository"/>
-        private LostPersonRepository lostPersonRepository { get; set; }
+        /// <see cref="LostPersonService"/>
+        private LostPersonService lostPersonService { get; set; }
+
+
 
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            this.lostPersonRepository = LostPersonRepository.INSTANCE;
+            this.lostPersonService = new LostPersonService(this.loginService);
         }
 
 
@@ -35,7 +35,7 @@ namespace LostPeopleRegisterApp.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            ViewBag.lostPersonList = this.lostPersonRepository.findAll();
+            ViewBag.lostPersonList = this.lostPersonService.findLastCreatedLostPeople(5);
             ViewBag.currentlyLoggedUser = this.loginService.getCurrentlyLoggedAccount();
 
             return View();

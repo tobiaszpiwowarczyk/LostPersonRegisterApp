@@ -11,7 +11,7 @@ import validate from "/Content/js/util/validate.js";
 
 var registerButton      = document.querySelector(".register-button"),
     inputRepository     = new InputRepository(document.querySelectorAll(".input")),
-    modal               = new Modal(".modal-overlay", ModalType.SUCCESS),
+    modal               = new Modal(".modal-overlay", {type: ModalType.SUCCESS}),
     today               = new Date(),
     month               = (today.getMonth() > 10 ? "" : "0") + today.getMonth(),
     day                 = (today.getDate() > 10 ? "" : "0") + today.getDate(),
@@ -25,10 +25,6 @@ inputRepository.forEach(input => input.addValidator("To pole jest wymagane", x =
 inputRepository.getInputByName("username").addValidator("Podana nazwa użytkownika już istnieje", x => validate("register", "username", x));
 inputRepository.getInputByName("emailAddress").addValidator("Adres e-mail jest nieprawidłowy", x => /^[a-zA-Z0-9\-\_\.]+\@([a-z]+\.)+[a-z]{2,3}$/g.test(x));
 inputRepository.getInputByName("emailAddress").addValidator("Podany adres e-mail już istnieje", x => validate("register", "emailAddress", x));
-
-
-
-inputRepository.getInputByName("birthDate").input.max = `${today.getFullYear()}-${month}-${day}`;
 
 
 

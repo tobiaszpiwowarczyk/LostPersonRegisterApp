@@ -37,7 +37,7 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
         /// </returns>
         /// <see cref="Account" />
         public Account findByUsernameAndPassword(string username, string password) 
-            => this.collection.FirstOrDefault(x => x.username == username && x.password == password);
+            => this.collection.AsNoTracking().FirstOrDefault(x => x.username == username && x.password == password);
 
 
 
@@ -49,7 +49,7 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
         ///     Zwraca true, jeżeli istnieje użytkownik o podanej nazwie użtkownika.
         ///     W przeciwnym przypadku zwraca false.
         /// </returns>
-        public bool existsByUsername(string username) => this.collection.ToList().Exists(x => x.username == username);
+        public bool existsByUsername(string username) => this.collection.AsNoTracking().ToList().Exists(x => x.username == username);
 
 
 
@@ -62,7 +62,7 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
         ///     Zaraca true, jeżeli takowe konto istnieje.
         ///     Zwraca false w przeciwnym przypadku
         /// </returns>
-        public bool existsByUsernameAndPassword(string username, string password) => this.collection.ToList().Exists(x => x.username == username && x.password == password);
+        public bool existsByUsernameAndPassword(string username, string password) => this.collection.AsNoTracking().ToList().Exists(x => x.username == username && x.password == password);
 
 
 
@@ -74,6 +74,6 @@ namespace LostPeopleRegisterApp.Src.AccountUtil
         ///     Zwraca true, jeżeli takowe konto istnieje.
         ///     Zwraca false, w przeciwnym przypadku.
         /// </returns>
-        public bool existsByEmail(string emailAddress) => this.collection.ToList().Exists(x => x.emailAddress == emailAddress);
+        public bool existsByEmail(string emailAddress) => this.collection.AsNoTracking().ToList().Exists(x => x.emailAddress == emailAddress);
     }
 }

@@ -1,0 +1,116 @@
+﻿/*
+ * Arkusz styli zawierający konfigurację wyglądu kontrolki do wprowadzania
+ * danych, takich jak pole tekstowe.
+ */
+
+@import "input-group.css";
+@import "input-file.css";
+
+:root {
+    --inputMargin: 15px;
+    --inputWidth: 400px;
+    --inputCheckBoxWidth: 20px;
+}
+
+.input {
+    position: relative;
+    width: var(--inputWidth);
+    margin: var(--inputMargin) 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.input__label {
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.input input[type=text],
+.input input[type=password],
+.input input[type=date],
+.input input[type=number],
+select {
+    position: relative;
+    width: 100%;
+    padding: 15px 20px;
+    background: var(--white);
+    font-size: 15px;
+    border: 3px solid var(--black);
+    border-radius: 3px;
+    transition: border-color .2s var(--bezier);
+}
+
+.input input[type=checkbox] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.input input[type=checkbox] ~ .input__label {
+    cursor: pointer;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.input input[type=checkbox] ~ .input__label::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f0c8';
+    position: relative;
+    font-size: 21px;
+    margin-right: 10px;
+    color: var(--blue);
+}
+
+.input input[type=checkbox]:checked ~ .input__label::before {
+    content: '\f14a';
+    font-weight: 900;
+}
+
+.input:not(.input--invalid) input[type=text]:focus,
+.input:not(.input--invalid) input[type=password]:focus,
+.input:not(.input--invalid) input[type=date]:focus,
+.input:not(.input--invalid) input[type=number]:focus,
+.input:not(.input--invalid) select:focus {
+    border-color: var(--blue);
+}
+
+.input__validator {
+    position: relative;
+    width: 100%;
+    background: var(--red);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 0 0 5px 5px;
+    font-size: 14px;
+    display: none;
+}
+
+
+
+
+.input.input--centered {
+    margin: var(--inputMargin) auto;
+}
+
+.input--invalid {
+    color: var(--red);
+}
+
+.input--invalid input[type=text]:focus,
+.input--invalid input[type=password]:focus,
+.input--invalid input[type=date]:focus {
+    color: var(--red);
+    border-color: var(--red);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input.input--invalid .input__validator {
+    display: block;
+}

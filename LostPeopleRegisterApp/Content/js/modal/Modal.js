@@ -1,5 +1,5 @@
-﻿import ModalCloseButton from "/Content/js/modal/ModalCloseButton.js";
-import ModalType from "/Content/js/modal/ModalType.js";
+﻿import ModalData from "/Content/js/modal/ModalData.js";
+import ModalCloseButton from "/Content/js/modal/ModalCloseButton.js";
 
 /*
  * Klasa, która będzie zarządzać okienkiem dialogowym
@@ -10,17 +10,19 @@ export default class Modal {
      * @overlaySelector - selector, który reprezentuje nakładkę, w której znajduje się okno dialogowe
      * @modalType       - typ komunikatu, który będzie się wyświetlał.
      */
-    constructor(overlaySelector, modalType = ModalType.INFO) {
+    constructor(overlaySelector, modalData) {
         var _self = this;
+        var _modalData = Object.assign(new ModalData(), modalData);
 
         this.overlay = document.querySelector(overlaySelector);
-        this.modalType = modalType;
-
         this.modal = this.overlay.querySelector(".modal");
         this.content = this.modal.querySelector(".modal__content").innerHTML;
-        
+
         this.shown = false;
-        this.modalOpenTime = 200;
+        this.modalType = _modalData.type;
+        this.modalOpenTime =_modalData.openTime;
+        this.modalWidth = _modalData.width;
+
         this.showEvent = new CustomEvent("onshown");
         this.closeEvent = new CustomEvent("onclosed", {
             detail: {
@@ -28,12 +30,14 @@ export default class Modal {
                 preventClosing: false
             }
         });
+
         this.onOpen = () => {};
         this.onClose = x => {};
         this.onCloseStart = x => Promise.resolve(x);
 
-        document.body.style.setProperty("--modalOpenTime", `${this.modalOpenTime}ms`);
-        
+        this.modal.style.animationTime = this.modalOpenTime + "ms";
+        this.modal.style.width = this.modalWidth + "px";
+
         if (this.modal.querySelector(".modal__header__title").innerHTML == "")
             this.modal.querySelector(".modal__header__title").innerHTML = this.modalType.title;
 
@@ -63,11 +67,17 @@ export default class Modal {
             }
         }, false);
 
+        window.addEventListener("resize", () => {
+            if (this.shown)
+                this.modal.style.width = this.modalWidth >= window.innerWidth ? "100%" : this.modalWidth + "px";
+        }, false);
+
         this.modal.addEventListener("onshown", () => {
             this.overlay.classList.add("modal-overlay--shown");
             this.modal.classList.add("modal--shown");
             this.shown = true;
             document.body.style.overflow = "hidden";
+            this.modal.style.width = this.modalWidth >= window.innerWidth ? "100%" : this.modalWidth + "px";
             setTimeout(() => this.onOpen(), this.modalOpenTime);
         }, false);
 
@@ -77,8 +87,8 @@ export default class Modal {
                     if (!this.closeEvent.detail.preventClosing) {
                         this.modal.classList.remove("modal--shown");
                         this.shown = false;
-                        document.body.style.overflow = "auto";
                         setTimeout(() => {
+                            document.body.style.overflow = "auto";
                             this.overlay.classList.remove("modal-overlay--shown");
                             this.onClose(this.closeEvent.detail);
                         }, this.modalOpenTime);
@@ -87,6 +97,9 @@ export default class Modal {
                 .then(() => this.closeEvent.detail.preventClosing = false);
         }, false);
     }
+
+
+
 
     /*
      * Metoda ma za zadanie pokazać okno dialogowe

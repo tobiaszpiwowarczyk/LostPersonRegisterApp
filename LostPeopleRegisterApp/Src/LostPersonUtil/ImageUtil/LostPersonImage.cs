@@ -1,8 +1,9 @@
 ﻿using LostPeopleRegisterApp.Src.CustomDatabaseUtil;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LostPeopleRegisterApp.Src.LostPersonUtil.Image
+namespace LostPeopleRegisterApp.Src.LostPersonUtil.ImageUtil
 {
     /// <summary>
     /// Klasa przechowująca informacje o zdjęciu osoby zaginionej
@@ -16,13 +17,15 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil.Image
         /// </summary>
         [Column("lost_person_id")]
         [Required]
+        [JsonIgnore]
         public int lostPersonId { get; set; }
 
         /// <summary>
         /// Osoba zaginiona
         /// </summary>
         /// <see cref="LostPerson"/>
-        public LostPerson lostPerson { get; set; }
+        [JsonIgnore]
+        public virtual LostPerson lostPerson { get; set; }
 
         /// <summary>
         /// Nazwa zdjęcia

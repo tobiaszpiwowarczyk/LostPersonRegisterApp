@@ -1,0 +1,64 @@
+﻿/*
+ * Arkusz styli, który posiada konfigurację wyglądu elementów
+ * wyświetlających panel, na którym wyświetlane będą szczegłowe
+ * dane zaginionej osoby
+ */
+
+.lost-person-details-dashboard {
+    position: relative;
+    display: flex;
+}
+
+.lost-person-details-dashboard__section {
+    position: relative;
+    border-right: 1px solid var(--lightGrey);
+}
+
+.lost-person-details-dashboard__section:last-child {
+    flex: 1;
+    border-right: none;
+}
+
+.lost-person-details__avatar {
+    position: relative;
+    padding: 20px;
+}
+
+.lost-person-details__avatar img {
+    display: block;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+}
+
+.lost-person-details-dashboard__section__header,
+.lost-person-details-dashboard__section__content {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.lost-person-details-dashboard__section__header {
+    border-bottom: 1px solid var(--lightGrey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+
+
+.lost-person-additional-detail {
+    position: relative;
+    background: var(--blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+    display: block;
+    margin-bottom: 15px;
+}
+
+.lost-person-additional-detail:last-child {
+    margin-bottom: 0;
+}

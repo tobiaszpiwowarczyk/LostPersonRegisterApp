@@ -22,7 +22,7 @@ namespace LostPeopleRegisterApp.Src.LostPersonUtil.AdditionalDetails
         /// Referencja do osoby zaginionej, która ma daną dodatkową cechę
         /// </summary>
         /// <see cref="LostPerson"/>
-        public LostPerson lostPerson { get; set; }
+        public virtual LostPerson lostPerson { get; set; }
 
         /// <summary>
         /// Nazwa atrybutu

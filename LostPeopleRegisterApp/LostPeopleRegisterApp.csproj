@@ -119,6 +119,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\account\account-additional-detail.css" />
+    <Content Include="Content\css\account\account-create-lost-person-form.css" />
     <Content Include="Content\css\account\account-avatar.css" />
     <Content Include="Content\css\account\account-dashboard.css" />
     <Content Include="Content\css\account\account-no-lost-person.css" />
@@ -126,16 +128,41 @@
     <Content Include="Content\css\account\account.css" />
     <Content Include="Content\css\form\button\button-group.css" />
     <Content Include="Content\css\form\button\button.css" />
-    <Content Include="Content\css\form\input.css" />
+    <Content Include="Content\css\form\input\input-file.css" />
+    <Content Include="Content\css\form\input\input-group.css" />
+    <Content Include="Content\css\form\input\input.css" />
+    <Content Include="Content\css\home\home-no-lost-person.css" />
+    <Content Include="Content\css\home\home.css" />
+    <Content Include="Content\css\home\last-registerd-person\last-registered-person-card.css" />
+    <Content Include="Content\css\home\last-registerd-person\last-registered-person-list.css" />
+    <Content Include="Content\css\home\search-box-advanced-details-form.css" />
+    <Content Include="Content\css\home\search-box.css" />
     <Content Include="Content\css\login-register\login-register.css" />
     <Content Include="Content\css\login-register\login.css" />
+    <Content Include="Content\css\lost-person\lost-person-details.css" />
+    <Content Include="Content\css\lost-person\lost-person.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\util\profile-image.css" />
+    <Content Include="Content\css\table\table.css" />
     <Content Include="Content\css\util\card.css" />
     <Content Include="Content\css\util\container.css" />
     <Content Include="Content\css\util\loading-overlay.css" />
     <Content Include="Content\js\account\Account.js" />
+    <Content Include="Content\js\account\AccountAdditionalDetail.js" />
     <Content Include="Content\js\account\AccountValidationResult.js" />
     <Content Include="Content\js\account\AccountValidationResultParser.js" />
+    <Content Include="Content\js\home\Home.js" />
+    <Content Include="Content\js\home\search-box\SearchBox.js" />
+    <Content Include="Content\js\home\search-box\SearchBoxData.js" />
+    <Content Include="Content\js\home\search-box\SearchBoxResult.js" />
+    <Content Include="Content\js\input\ChoiceInput.js" />
+    <Content Include="Content\js\input\InputData.js" />
+    <Content Include="Content\js\input\FileInput.js" />
+    <Content Include="Content\js\input\SelectionInput.js" />
+    <Content Include="Content\js\lost-person\LostPerson.js" />
+    <Content Include="Content\js\lost-person\LostPersonDetails.js" />
+    <Content Include="Content\js\modal\ModalData.js" />
+    <Content Include="Content\js\profile-image\ProfileImageData.js" />
     <Content Include="Content\js\util\Alert.js" />
     <Content Include="Content\js\input\Input.js" />
     <Content Include="Content\js\input\InputRepository.js" />
@@ -146,17 +173,25 @@
     <Content Include="Content\js\modal\ModalTypeData.js" />
     <Content Include="Content\js\modal\ModalType.js" />
     <Content Include="Content\js\register\Register.js" />
+    <Content Include="Content\js\util\CSSUtils.js" />
     <Content Include="Content\js\util\Header.js" />
     <Content Include="Content\js\util\LoadingOverlay.js" />
+    <Content Include="Content\js\profile-image\ProfileImage.js" />
     <Content Include="Content\js\util\validate.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Src\LostPersonUtil\ImageUtil\LostPersonImageUtils.cs" />
+    <Compile Include="Src\LostPersonUtil\LostPersonSearchCriteria.cs" />
+    <Compile Include="Src\LostPersonUtil\LostPersonService.cs" />
+    <Compile Include="Src\LostPersonUtil\LostPersonUtils.cs" />
+    <Compile Include="Src\Util\CustomJsonResult.cs" />
     <Content Include="Content\css\header\header.css" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LostPersonController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Src\AccountUtil\Account.cs" />
     <Compile Include="Src\AccountUtil\AccountRepository.cs" />
@@ -178,9 +213,10 @@
     <Compile Include="Src\LoginUtil\LoginService.cs" />
     <Compile Include="Src\LostPersonUtil\AdditionalDetails\LostPersonAdditionalDetail.cs" />
     <Compile Include="Src\LostPersonUtil\Address\CityLostPersonAddress.cs" />
+    <Compile Include="Src\LostPersonUtil\Address\ConverterUtil\LostPersonAddressJsonConverter.cs" />
     <Compile Include="Src\LostPersonUtil\Address\LostPersonAddress.cs" />
     <Compile Include="Src\LostPersonUtil\Address\VillageLostPersonAddress.cs" />
-    <Compile Include="Src\LostPersonUtil\Image\LostPersonImage.cs" />
+    <Compile Include="Src\LostPersonUtil\ImageUtil\LostPersonImage.cs" />
     <Compile Include="Src\LostPersonUtil\LostPerson.cs" />
     <Compile Include="Src\LostPersonUtil\LostPersonRepository.cs" />
     <Compile Include="Src\LostPersonUtil\Status\LostPersonStatus.cs" />
@@ -198,6 +234,8 @@
     <Content Include="Views\Shared\LoginRegisterLayout.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\LostPerson\Details.cshtml" />
+    <Content Include="Views\LostPerson\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
